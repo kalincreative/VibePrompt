@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --color-pink-50: #FFF1F3;
+  --color-pink-100: #FFE4E9;
+  --color-pink-200: #FECDD6;
+  --color-pink-300: #FDA4B8;
+  --color-pink-400: #FB7193;
+  --color-pink-500: #F43F6F;
+  --color-pink-600: #E11D55;
+  --color-pink-700: #BE123C;
+  --color-primary: #F43F6F;
+  --color-primary-hover: #E11D55;
+  --color-primary-light: #FFF1F3;
+  --color-gray-50: #F8FAFC;
+  --color-gray-100: #F1F5F9;
+  --color-gray-200: #E2E8F0;
+  --color-gray-300: #CBD5E1;
+  --color-gray-400: #94A3B8;
+  --color-gray-500: #64748B;
+  --color-gray-600: #475569;
+  --color-gray-700: #334155;
+  --color-gray-800: #1E293B;
+  --color-gray-900: #0F172A;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-family-sans);
+  background-color: #FFFFFF;
+  color: var(--color-gray-900);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root { min-height: 100vh; }
+
+::selection { background: rgba(244, 63, 111, 0.15); color: var(--color-gray-900); }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-gray-50); }
+::-webkit-scrollbar-thumb { background: var(--color-gray-300); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-gray-400); }
+
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+.skeleton {
+  background: linear-gradient(90deg, var(--color-gray-100) 25%, var(--color-gray-50) 50%, var(--color-gray-100) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
