@@ -23,7 +23,7 @@ const item = {
 
 export default function HomePage() {
     return (
-        <div style={{ minHeight: '100vh', overflow: 'hidden', background: '#FFFFFF' }}>
+        <div style={{ minHeight: '100vh', overflowX: 'hidden', background: '#FFFFFF' }}>
             {/* Hero */}
             <section style={{
                 position: 'relative',
@@ -117,7 +117,7 @@ export default function HomePage() {
 
             {/* Features */}
             <section id="features" style={{
-                padding: '3rem 1.25rem 5rem',
+                padding: '3rem 1.5rem 5rem',
                 maxWidth: '1120px',
                 margin: '0 auto',
             }}>
@@ -132,11 +132,7 @@ export default function HomePage() {
 
                 <motion.div
                     variants={container} initial="hidden" whileInView="show" viewport={{ once: true }}
-                    style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(3, 1fr)',
-                        gap: '1.25rem',
-                    }}
+                    className="features-grid"
                 >
                     {features.map(f => (
                         <motion.div key={f.title} variants={item}>
@@ -179,6 +175,17 @@ export default function HomePage() {
 
             {/* Responsive grid + animated blobs */}
             <style>{`
+        .features-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+        @media (min-width: 640px) {
+          .features-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+        }
+        @media (min-width: 1024px) {
+          .features-grid { grid-template-columns: repeat(3, 1fr); }
+        }
         .mesh-blob {
           position: absolute;
           border-radius: 50%;
@@ -225,12 +232,8 @@ export default function HomePage() {
           66%  { transform: translate(85px, 45px) scale(0.82) rotate(140deg); }
           100% { transform: translate(0, 0) scale(1) rotate(0deg); }
         }
-        @media (max-width: 768px) {
-          section#features > div > div { grid-template-columns: 1fr !important; }
+        @media (max-width: 640px) {
           .mesh-blob { width: 280px !important; height: 280px !important; }
-        }
-        @media (min-width: 769px) and (max-width: 1023px) {
-          section#features > div > div { grid-template-columns: repeat(2, 1fr) !important; }
         }
       `}</style>
         </div>
