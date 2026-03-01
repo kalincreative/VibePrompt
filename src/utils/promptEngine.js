@@ -1,160 +1,102 @@
 // ═══════════════════════════════════════════════
-// VIBEPROMPT — MASTER PROMPT ENGINE
-// Transforms simple form data into a Senior Dev prompt
-// Hides all technical jargon from the user
+// VIBEPROMPT — SMART DYNAMIC PROMPT ENGINE
+// 100% Frontend. No API calls. Conditional logic.
 // ═══════════════════════════════════════════════
 
 import { appTypePresets, designVibePresets } from './presets'
 
 /**
- * Generates a complete, structured master prompt from user form inputs.
- * The user picks simple options; this engine translates them to technical specs.
+ * generateMegaPrompt(formData)
+ * Builds both prompt blocks conditionally based on selected features.
+ * Returns { block1, block2 }
  */
-export function generateMasterPrompt(data) {
-    const appType = appTypePresets.find(t => t.id === data.appTypeId)
-    const vibe = designVibePresets.find(v => v.id === data.designVibeId)
+export function generateMegaPrompt(formData) {
+  const features = formData.features || []
 
-    const stackList = appType ? appType.stack.map(s => `► ${s}`).join('\n') : '► Next.js 14, TailwindCSS, Supabase'
-    const featureList = data.features?.length
-        ? data.features.map((f, i) => `${i + 1}. ${f}`).join('\n')
-        : '1. Core feature (please specify)'
+  // ── Resolve human-readable labels from IDs ──────────────────────────
+  const projectTypeObj = appTypePresets.find(t => t.id === formData.appTypeId)
+  const projectType = projectTypeObj
+    ? projectTypeObj.name.replace(/^[^\s]+\s/, '') // strip leading emoji
+    : formData.appTypeId || 'System / Web App'
 
-    const colorPalette = vibe
-        ? vibe.colors.map((c, i) => `  ${['Primary', 'Secondary', 'Accent', 'Text', 'Surface'][i] || 'Extra'}: ${c}`).join('\n')
-        : '  Not specified'
+  const vibeObj = designVibePresets.find(v => v.id === formData.designVibeId)
+  const vibe = vibeObj
+    ? vibeObj.name.replace(/^[^\s]+\s/, '')
+    : formData.designVibeId || 'Clean & Minimalist'
 
-    const vibeCSS = vibe?.css || 'Not specified'
-    const vibeFont = vibe?.font || 'Inter'
-    const vibeName = vibe?.name?.replace(/^[^\s]+\s/, '') || 'Minimalist' // strip emoji
-    const isDark = vibe?.darkMode ? 'Yes — use dark backgrounds as default' : 'No — use light backgrounds as default'
+  const appName = formData.appName?.trim() || 'My Project'
+  const description = formData.appDescription?.trim() || 'A form that collects data and processes it via Google Apps Script.'
+  // ── Smart fallbacks for branding ────────────────────────────────────
+  const safePrimary = formData.primaryColor?.trim() || '#2563EB'  // Tailwind Blue-600
+  const safeSecondary = formData.secondaryColor?.trim() || '#F1F5F9'  // Tailwind Slate-100
+  const safeLogo = formData.logoUrl?.trim()
+    ? `Logo: ${formData.logoUrl.trim()}`
+    : 'No specific logo, please use a modern generic icon matching the vibe.'
 
-    const prompt = `You are a Senior Full-Stack Developer. Build a COMPLETE, SHIPPABLE app in ONE session.
-No half-measures. No "add the rest later." Every file must be production-ready.
+  // ── Conditional logic strings ────────────────────────────────────────
+  const sheetLogic = features.includes('📊 Save Data to Google Sheets')
+    ? 'Ensure the doPost(e) function parses the JSON payload and appends a new row to the active sheet using SpreadsheetApp.'
+    : ''
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-APP BRIEF
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Name: ${data.appName || 'My App'}
-Description: ${data.appDescription || 'No description provided'}
-Target Audience: ${data.targetAudience || 'General users'}
+  const emailLogic = features.includes('📧 Auto-Send Email via Gmail')
+    ? "Include MailApp.sendEmail() in the GAS code to send an automated confirmation email to the user. Extract the user's email from the JSON payload."
+    : ''
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-TECH STACK
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-${stackList}
+  const pdfLogic = features.includes('📄 Generate PDF Document')
+    ? 'Include logic using Google DocumentApp and DriveApp to generate a PDF receipt from a template and return the PDF URL in the response.'
+    : ''
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-DESIGN SYSTEM
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Vibe: ${vibeName}
-Dark Mode: ${isDark}
-Font: ${vibeFont}
+  const waLogic = features.includes('💬 Auto-Redirect to WhatsApp')
+    ? 'In the Frontend JS, after a successful 200 response, redirect the user to a WhatsApp link (wa.me) containing their dynamically encoded form data.'
+    : 'In the Frontend JS, after a successful 200 response, hide the form and display the success container.'
 
-Color Palette:
-${colorPalette}
+  // Combine non-empty logic lines for Block 1
+  const requiredLogic = [sheetLogic, emailLogic, pdfLogic]
+    .filter(Boolean)
+    .join(' ')
 
-CSS Tokens:
-  ${vibeCSS}
+  // Additional notes from user (optional)
+  const additionalNotes = formData.additionalNotes?.trim()
+    ? `\nAdditional Notes/Links: ${formData.additionalNotes.trim()}`
+    : ''
 
-Design Rules:
-- Apply the design system GLOBALLY from component 1
-- Never mix vibes mid-app
-- Every component must look like it belongs to the same design language
-- Mobile-first in EVERY UI decision (test at 375px)
-- Use smooth micro-animations for hover states and transitions
+  // ── BLOCK 1: Project Kickoff & Backend Setup ────────────────────────
+  const block1 = `Act as a Senior Tech Lead and UI/UX Architect. I want to build a ${projectType} named '${appName}' using Canva Code (Frontend) and Google Apps Script (Backend).
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-MUST-BUILD FEATURES
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-${featureList}
+Client's Initial Concept: "${description}"${additionalNotes}
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-FILE STRUCTURE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-${generateFileStructure(appType)}
+PHASE 1: BRAINSTORMING (DO THIS FIRST)
+Before writing any code or generating Canva prompts, analyze my concept. Ask me up to 4 clarifying questions to finalize the UI scope (sections, form fields, user flow).
+(Stop here and wait for my reply. DO NOT generate any GAS code or setup guides yet).
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-BUILD RULES (NON-NEGOTIABLE)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-1. ALWAYS provide COMPLETE code. Never say "add the rest here."
-2. If something needs an env variable, state it with the exact key name.
-3. Prefer boring, proven solutions over clever ones.
-4. Think mobile-first — test every layout at 375px width.
-5. Ship the MVP. Save perfection for v2.
-6. Build every component as its OWN file — no mega-components.
-7. Handle loading, empty, and error states for EVERY feature.
-8. Enable authentication & security from day 1.
-9. One feature at a time — finish and test before the next.
-10. Use semantic HTML and include accessibility attributes (aria-labels, roles).${data.additionalNotes ? `
+PHASE 2: DATABASE SETUP & ID REQUEST (DO THIS AFTER PHASE 1)
+Once we agree on the scope, guide me step-by-step on how to set up the database (e.g., creating a Google Sheet, naming the columns based on our agreed fields). Then, teach me how to find the exact Sheet ID. Finally, explicitly ask me to reply with that exact Sheet ID.
+(Stop here and wait for me to provide the ID. DO NOT generate the GAS code yet).
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-ADDITIONAL INSTRUCTIONS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-${data.additionalNotes}` : ''}
+PHASE 3: FULL GAS CODE GENERATION (DO THIS AFTER I PROVIDE THE ID)
+Once I provide the ID, give me the complete doGet(e) and doPost(e) GAS code.
+Inject the exact ID I provided directly into the script.
+Required Logic: ${sheetLogic}${emailLogic ? `\n${emailLogic}` : ''}${pdfLogic ? `\n${pdfLogic}` : ''}
+CRITICAL API RULE: The doPost(e) function MUST return a proper JSON response. On success, return exactly: {"status": "success", "message": "Success"}. On error, return: {"status": "error", "message": "Error details"}.
+Remind me to deploy it as a Web App to get the URL.`
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-BUILD SEQUENCE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-STEP 1 → Scaffold the project with the tech stack above
-STEP 2 → Set up the design system (global styles, theme, fonts)
-STEP 3 → Build authentication (if applicable)
-STEP 4 → Build the first core feature end-to-end
-STEP 5 → Build remaining features one by one
-STEP 6 → Polish: responsive design, animations, error states
-STEP 7 → Build & deploy
+  // ── BLOCK 2: Canva Code Frontend Prompt ─────────────────────────────
+  const block2 = `Awesome, the backend is deployed. Now, based on the exact details, UI sections, and form fields we just brainstormed and finalized above, generate the 2-Step Mega Prompt for Canva Code's AI.
 
-Start building now. Output complete, working code.`
+--- PROMPT 1: UI/UX DESIGN ---
+Instruct the AI to generate this prompt using this EXACT structure:
+"Act as a Senior UI/UX Expert. Build a complete Tailwind CSS layout for a ${projectType} named '${appName}'.
+Scope: Build exactly the UI sections, pages, and specific form fields we finalized in our discussion. Use our agreed-upon text copy.
+Design Vibe: ${vibe}. Primary Color: ${safePrimary}, Secondary Color: ${safeSecondary}. ${safeLogo}
+Crucial Rule: For any forms, MUST build a hidden error message box, a hidden success container, and a submit button with a 'Loading...' state. Do not include JS logic yet."
 
-    return prompt
-}
+--- PROMPT 2: JS LOGIC & INTEGRATION ---
+Instruct the AI to generate this prompt using this EXACT structure:
+"Perfect, now add the JavaScript integration for the layout above. Provide strict rules:
+Use this exact GAS URL: [YOUR GAS WEBAPP URL HERE]
+Fetch Rules: Gather form data into a flat JSON object matching our agreed fields. Send using \`JSON.stringify(formData)\`. STRICTLY FORBID \`URLSearchParams\`, \`FormData()\`, or \`'Content-Type': 'application/json'\` headers. STRICTLY FORBID \`mode: 'no-cors'\`. Use standard POST.
+Success Handling: Parse the response JSON. If successful, hide the form and display the success container. If error, show the error box."
+Please format your response by giving me 'Prompt 1' and 'Prompt 2' in copyable blocks.`
 
-function generateFileStructure(appType) {
-    if (!appType) {
-        return `src/
-├── components/   ← reusable UI pieces
-├── pages/        ← route-level screens
-├── utils/        ← helper functions
-├── App.jsx       ← router setup
-└── main.jsx      ← entry point`
-    }
-
-    if (appType.fileStructure === 'nextjs') {
-        return `app/
-├── layout.tsx        ← root layout + global styles
-├── page.tsx          ← home page
-├── globals.css       ← design system
-├── components/       ← reusable UI pieces
-├── lib/              ← database client, utils
-└── (routes)/         ← nested route groups`
-    }
-
-    if (appType.fileStructure === 'expo') {
-        return `app/
-├── (tabs)/            ← tab navigation
-│   ├── index.tsx      ← home tab
-│   └── _layout.tsx    ← tab layout
-├── components/        ← reusable UI
-├── hooks/             ← custom hooks
-├── lib/               ← API clients
-└── app.json           ← Expo config`
-    }
-
-    if (appType.fileStructure === 'astro') {
-        return `src/
-├── pages/
-│   └── index.astro   ← homepage
-├── components/       ← reusable UI
-├── layouts/          ← page layouts
-├── styles/           ← global CSS
-└── astro.config.mjs  ← Astro config`
-    }
-
-    return `src/
-├── components/   ← small, reusable UI pieces
-├── pages/        ← route-level screens
-├── lib/          ← API clients
-├── hooks/        ← custom React hooks
-├── utils/        ← pure helper functions
-├── App.jsx       ← router + auth listener
-└── main.jsx      ← entry point`
+  return { block1, block2 }
 }

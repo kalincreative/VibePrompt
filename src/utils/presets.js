@@ -4,29 +4,42 @@
 // Tech stacks are hidden, mapped automatically
 // ═══════════════════════════════════════════════
 
-// User-facing: simple app type choices (no jargon)
+// User-facing: project type choices for Canva Code + GAS workflow
 export const appTypePresets = [
     {
-        id: 'web-app',
-        name: '🌐 Web App',
-        description: 'A full website with pages, user accounts, and a database.',
-        // Hidden mapping — user never sees this
-        stack: ['Next.js 14 (App Router)', 'TailwindCSS v4', 'Supabase (Auth + Database)', 'TypeScript'],
-        fileStructure: 'nextjs',
+        id: 'system-web-app',
+        name: '🌐 System / Web App',
+        description: 'A full system or web app with forms, data handling, and backend logic.',
+        stack: ['Canva Code', 'Google Apps Script', 'Google Sheets'],
+        fileStructure: 'canva-gas',
     },
     {
-        id: 'mobile-app',
-        name: '📱 Mobile App',
-        description: 'An app for phones (iOS & Android) built from one codebase.',
-        stack: ['Expo SDK 50', 'React Native', 'NativeWind (Tailwind for mobile)', 'Supabase'],
-        fileStructure: 'expo',
+        id: 'sales-page',
+        name: '💰 Sales Page',
+        description: 'A conversion-focused page with forms, product info, and call-to-actions.',
+        stack: ['Canva Code', 'Google Apps Script', 'Google Sheets'],
+        fileStructure: 'canva-gas',
     },
     {
         id: 'landing-page',
-        name: '🚀 Landing Page / Website',
-        description: 'A beautiful single-page or multi-page marketing site.',
-        stack: ['Astro 4', 'TailwindCSS v4', 'HTML5', 'Vanilla JavaScript'],
-        fileStructure: 'astro',
+        name: '🚀 Landing Page / Minisite',
+        description: 'A compact, eye-catching page to capture leads or showcase a product.',
+        stack: ['Canva Code', 'Google Apps Script', 'Google Sheets'],
+        fileStructure: 'canva-gas',
+    },
+    {
+        id: 'portfolio',
+        name: '🔗 Portfolio / Link in Bio',
+        description: 'A personal portfolio or link-in-bio page with social links and highlights.',
+        stack: ['Canva Code', 'Google Apps Script'],
+        fileStructure: 'canva-gas',
+    },
+    {
+        id: 'corporate-website',
+        name: '🏢 Corporate Website',
+        description: 'A professional multi-page website for a business or organization.',
+        stack: ['Canva Code', 'Google Apps Script', 'Google Sheets'],
+        fileStructure: 'canva-gas',
     },
 ]
 
@@ -109,19 +122,10 @@ export const designVibePresets = [
 ]
 
 export const featureTemplates = [
-    'User Accounts (Login / Sign up)',
-    'Dashboard with Charts',
-    'Add, Edit & Delete Items',
-    'Search & Filter',
-    'Notifications',
-    'Payments (Stripe)',
-    'Upload Files & Images',
-    'Chat / Messaging',
-    'Share on Social Media',
-    'Dark Mode',
-    'Multiple Languages',
-    'Admin Panel',
-    'Connect to Other Services (APIs)',
-    'Drag & Drop',
-    'Calendar / Booking',
+    '📊 Save Data to Google Sheets',
+    '📧 Auto-Send Email via Gmail',
+    '📄 Generate PDF Document',
+    '📅 Create Google Calendar Event',
+    '💬 Auto-Redirect to WhatsApp',
+    '📁 Upload File to Google Drive',
 ]
