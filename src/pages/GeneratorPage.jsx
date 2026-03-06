@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import GlassCard from '../components/GlassCard'
 import Button from '../components/Button'
@@ -8,6 +8,7 @@ import SelectField from '../components/SelectField'
 import StepIndicator from '../components/StepIndicator'
 import CopyButton from '../components/CopyButton'
 import VibePreviewer from '../components/VibePreviewer'
+import PaywallModal from '../components/PaywallModal'
 import { appTypePresets, designVibePresets, featureTemplates } from '../utils/presets'
 import { generateMegaPrompt } from '../utils/promptEngine'
 import { useAuth } from '../hooks/useAuth'
@@ -33,7 +34,26 @@ export default function GeneratorPage() {
     const [block2, setBlock2] = useState('')
     const [saving, setSaving] = useState(false)
     const [saved, setSaved] = useState(false)
+    const [credits, setCredits] = useState(null)   // null = loading
+    const [isPro, setIsPro] = useState(false)
+    const [showPaywall, setShowPaywall] = useState(false)
     const { user } = useAuth()
+
+    // Fetch profile credits on mount / user change
+    useEffect(() => {
+        if (!user || !isSupabaseConfigured()) return
+        supabase
+            .from('profiles')
+            .select('credits, is_pro')
+            .eq('id', user.id)
+            .single()
+            .then(({ data }) => {
+                if (data) {
+                    setCredits(data.credits)
+                    setIsPro(data.is_pro)
+                }
+            })
+    }, [user])
 
     const update = (field, value) => setFormData(prev => ({ ...prev, [field]: value }))
 
@@ -54,13 +74,33 @@ export default function GeneratorPage() {
     }
 
     const handleGenerate = async () => {
+        // ── Credit gate ──────────────────────────────────────────────
+        if (user && isSupabaseConfigured() && !isPro) {
+            if (credits !== null && credits <= 0) {
+                setShowPaywall(true)
+                return
+            }
+        }
+
         const { block1: b1, block2: b2 } = generateMegaPrompt(formData)
         setBlock1(b1)
         setBlock2(b2)
         setStep(4)
 
-        // Auto-save for logged-in users
+        // ── Deduct 1 credit & auto-save for logged-in users ──────────
         if (user && isSupabaseConfigured()) {
+            // Deduct credit if not pro
+            if (!isPro && credits !== null && credits > 0) {
+                const newCredits = credits - 1
+                setCredits(newCredits)
+                supabase
+                    .from('profiles')
+                    .update({ credits: newCredits })
+                    .eq('id', user.id)
+                    .then(({ error }) => { if (error) console.error('Credit deduct failed:', error) })
+            }
+
+            // Auto-save prompt
             setSaving(true)
             try {
                 await supabase.from('saved_prompts').insert({
@@ -282,6 +322,22 @@ export default function GeneratorPage() {
                                 <span style={{ padding: '0.2rem 0.625rem', borderRadius: '100px', background: '#ECFDF5', border: '1px solid #6EE7B7', color: '#059669', fontSize: '0.6875rem', fontWeight: 600 }}>
                                     ✦ Canva Code + Google Apps Script
                                 </span>
+                                {/* Credits badge */}
+                                {user && credits !== null && !isPro && (
+                                    <span style={{
+                                        padding: '0.2rem 0.625rem', borderRadius: '100px', fontSize: '0.6875rem', fontWeight: 600,
+                                        background: credits === 0 ? '#FFF1F3' : credits === 1 ? '#FFFBEB' : '#F8FAFC',
+                                        border: `1px solid ${credits === 0 ? '#FECDD6' : credits === 1 ? '#FDE68A' : '#E2E8F0'}`,
+                                        color: credits === 0 ? '#E11D55' : credits === 1 ? '#D97706' : '#64748B',
+                                    }}>
+                                        {credits === 0 ? '🔒' : '⚡'} Credits Left: {credits}/3
+                                    </span>
+                                )}
+                                {user && isPro && (
+                                    <span style={{ padding: '0.2rem 0.625rem', borderRadius: '100px', background: '#ECFDF5', border: '1px solid #6EE7B7', color: '#059669', fontSize: '0.6875rem', fontWeight: 600 }}>
+                                        ✦ Pro · Unlimited
+                                    </span>
+                                )}
                                 {saved && (
                                     <span style={{ padding: '0.2rem 0.625rem', borderRadius: '100px', background: '#FFF1F3', border: '1px solid #FECDD6', color: '#E11D55', fontSize: '0.6875rem', fontWeight: 600 }}>
                                         ✓ Saved to your dashboard
@@ -349,6 +405,8 @@ export default function GeneratorPage() {
 
 
             </div>
+
+            <PaywallModal open={showPaywall} onClose={() => setShowPaywall(false)} />
 
             <style>{`
         @media (max-width: 768px) {
