@@ -8,35 +8,35 @@
 export const appTypePresets = [
     {
         id: 'system-web-app',
-        name: '🌐 System / Web App',
+        name: 'System / Web App',
         description: 'A full system or web app with forms, data handling, and backend logic.',
         stack: ['Canva Code', 'Google Apps Script', 'Google Sheets'],
         fileStructure: 'canva-gas',
     },
     {
         id: 'sales-page',
-        name: '💰 Sales Page',
+        name: 'Sales Page',
         description: 'A conversion-focused page with forms, product info, and call-to-actions.',
         stack: ['Canva Code', 'Google Apps Script', 'Google Sheets'],
         fileStructure: 'canva-gas',
     },
     {
         id: 'landing-page',
-        name: '🚀 Landing Page / Minisite',
+        name: 'Landing Page / Minisite',
         description: 'A compact, eye-catching page to capture leads or showcase a product.',
         stack: ['Canva Code', 'Google Apps Script', 'Google Sheets'],
         fileStructure: 'canva-gas',
     },
     {
         id: 'portfolio',
-        name: '🔗 Portfolio / Link in Bio',
+        name: 'Portfolio / Link in Bio',
         description: 'A personal portfolio or link-in-bio page with social links and highlights.',
         stack: ['Canva Code', 'Google Apps Script'],
         fileStructure: 'canva-gas',
     },
     {
         id: 'corporate-website',
-        name: '🏢 Corporate Website',
+        name: 'Corporate Website',
         description: 'A professional multi-page website for a business or organization.',
         stack: ['Canva Code', 'Google Apps Script', 'Google Sheets'],
         fileStructure: 'canva-gas',
@@ -49,7 +49,7 @@ export const techStackPresets = appTypePresets
 export const designVibePresets = [
     {
         id: 'minimalist',
-        name: '✨ Clean & Minimal',
+        name: 'Clean & Minimal',
         description: 'Simple, elegant, lots of white space',
         colors: ['#FFFFFF', '#F8FAFC', '#0F172A', '#3B82F6', '#E2E8F0'],
         font: 'Inter',
@@ -58,7 +58,7 @@ export const designVibePresets = [
     },
     {
         id: 'cyberpunk',
-        name: '🌆 Neon & Dark',
+        name: 'Neon & Dark',
         description: 'Glowing neon colors on a dark background',
         colors: ['#0A0A0F', '#1A1A2E', '#00FF88', '#FF0080', '#FFE600'],
         font: 'JetBrains Mono',
@@ -67,7 +67,7 @@ export const designVibePresets = [
     },
     {
         id: 'glassmorphism',
-        name: '🧊 Frosted Glass',
+        name: 'Frosted Glass',
         description: 'Blurry see-through cards with soft glows',
         colors: ['#0B1220', '#60A5FA', '#A78BFA', '#F1F5F9', 'rgba(255,255,255,0.08)'],
         font: 'Inter',
@@ -76,7 +76,7 @@ export const designVibePresets = [
     },
     {
         id: 'neobrutalism',
-        name: '🎯 Bold & Playful',
+        name: 'Bold & Playful',
         description: 'Thick borders, heavy shadows, bright colors',
         colors: ['#FAFAF9', '#000000', '#F5D000', '#C8102E', '#3B82F6'],
         font: 'Space Grotesk',
@@ -85,7 +85,7 @@ export const designVibePresets = [
     },
     {
         id: 'retro',
-        name: '🌈 Retro & Warm',
+        name: 'Retro & Warm',
         description: 'Vintage gradients and warm sunset tones',
         colors: ['#FFF7ED', '#FB923C', '#A855F7', '#EC4899', '#FBBF24'],
         font: 'DM Sans',
@@ -94,7 +94,7 @@ export const designVibePresets = [
     },
     {
         id: 'corporate',
-        name: '💼 Professional',
+        name: 'Professional',
         description: 'Trustworthy, clean, business-grade look',
         colors: ['#FFFFFF', '#F1F5F9', '#1E293B', '#2563EB', '#0EA5E9'],
         font: 'Outfit',
@@ -103,7 +103,7 @@ export const designVibePresets = [
     },
     {
         id: 'playful',
-        name: '🎨 Fun & Colorful',
+        name: 'Fun & Colorful',
         description: 'Rounded shapes, bright pops of color, bouncy feel',
         colors: ['#FFFBEB', '#F472B6', '#34D399', '#818CF8', '#FACC15'],
         font: 'Nunito',
@@ -112,7 +112,7 @@ export const designVibePresets = [
     },
     {
         id: 'dark-luxury',
-        name: '🖤 Dark & Premium',
+        name: 'Dark & Premium',
         description: 'Sleek dark theme with gold accents',
         colors: ['#09090B', '#18181B', '#D4AF37', '#F5F5F5', '#27272A'],
         font: 'Playfair Display',
@@ -122,10 +122,10 @@ export const designVibePresets = [
 ]
 
 export const featureTemplates = [
-    '📊 Save Data to Google Sheets',
-    '📧 Auto-Send Email via Gmail',
-    '📄 Generate PDF Document',
-    '📅 Create Google Calendar Event',
-    '💬 Auto-Redirect to WhatsApp',
-    '📁 Upload File to Google Drive',
+    'Save Data to Google Sheets',
+    'Auto-Send Email via Gmail',
+    'Generate PDF Document',
+    'Create Google Calendar Event',
+    'Auto-Redirect to WhatsApp',
+    'Upload File to Google Drive',
 ]

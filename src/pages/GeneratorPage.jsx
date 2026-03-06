@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Palette, Layers, FileText } from 'lucide-react'
 import GlassCard from '../components/GlassCard'
 import Button from '../components/Button'
 import InputField from '../components/InputField'
@@ -215,8 +216,9 @@ export default function GeneratorPage() {
                                                 background: '#F8FAFC', border: '1px solid #E2E8F0',
                                                 borderRadius: '0.75rem',
                                             }}>
-                                                <h3 style={{ fontSize: '0.875rem', fontWeight: 700, color: '#0F172A', marginBottom: '0.75rem' }}>
-                                                    🎨 Custom Branding (Optional)
+                                                <h3 style={{ fontSize: '0.875rem', fontWeight: 700, color: '#0F172A', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                                                    <Palette size={15} color="#E11D55" strokeWidth={2} />
+                                                    Custom Branding (Optional)
                                                 </h3>
                                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                                                     <InputField label="Primary Brand Color (HEX)" id="primaryColor" value={formData.primaryColor} onChange={e => update('primaryColor', e.target.value)} placeholder="#FF5733" />
@@ -279,13 +281,19 @@ export default function GeneratorPage() {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', position: 'sticky', top: '72px', alignSelf: 'start' }}>
                             {step >= 2 && formData.designVibeId && (
                                 <GlassCard>
-                                    <h3 style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#0F172A', marginBottom: '0.625rem' }}>🎨 Vibe Preview</h3>
+                                    <h3 style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#0F172A', marginBottom: '0.625rem', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                                        <Layers size={14} color="#E11D55" strokeWidth={2} />
+                                        Vibe Preview
+                                    </h3>
                                     <VibePreviewer vibeId={formData.designVibeId} />
                                 </GlassCard>
                             )}
 
                             <GlassCard>
-                                <h3 style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#0F172A', marginBottom: '0.625rem' }}>📋 Your Prompt Summary</h3>
+                                <h3 style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#0F172A', marginBottom: '0.625rem', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                                    <FileText size={14} color="#E11D55" strokeWidth={2} />
+                                    Your Prompt Summary
+                                </h3>
                                 <div style={{ fontSize: '0.8125rem', color: '#64748B', lineHeight: 1.7 }}>
                                     {formData.appName ? (
                                         <>
