@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import {
     BookCheck, Rocket, Building2,
     FormInput, Cpu, Palette, Sparkles, Copy, Eye,
+    Check,
 } from 'lucide-react'
 
 const ICON_COLOR_GREY = '#64748B'
@@ -271,6 +272,165 @@ export default function HomePage() {
                         </button>
                     </Link>
                 </motion.div>
+            </section>
+
+            {/* ── Pricing ──────────────────────────────────────────── */}
+            <section id="pricing" style={{
+                padding: '4rem 1.5rem 5rem',
+                background: '#F8FAFC',
+                borderTop: '1px solid #F1F5F9',
+            }}>
+                <div style={{ maxWidth: '1120px', margin: '0 auto' }}>
+                    {/* Header */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+                        style={{ textAlign: 'center', marginBottom: '3rem' }}
+                    >
+                        <h2 style={{ fontSize: '1.875rem', fontWeight: 800, color: '#0F172A', marginBottom: '0.625rem' }}>
+                            Choose the plan that fits your vibe.
+                        </h2>
+                        <p style={{ fontSize: '0.9375rem', color: '#64748B', maxWidth: '520px', margin: '0 auto', lineHeight: 1.65 }}>
+                            Whether you're just testing the waters or building apps every day, we've got you covered.
+                        </p>
+                    </motion.div>
+
+                    {/* Cards */}
+                    <motion.div
+                        variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } }}
+                        initial="hidden" whileInView="show" viewport={{ once: true }}
+                        style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', alignItems: 'start' }}
+                    >
+                        {/* ── Card 1: Starter ── */}
+                        <motion.div variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } }}>
+                            <div style={{
+                                background: '#FFFFFF', borderRadius: '1.25rem',
+                                border: '1px solid #E2E8F0', padding: '2rem',
+                                boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+                                display: 'flex', flexDirection: 'column', gap: '1.25rem',
+                            }}>
+                                <div>
+                                    <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.375rem' }}>Starter</p>
+                                    <p style={{ fontSize: '2.25rem', fontWeight: 800, color: '#0F172A', lineHeight: 1 }}>Free</p>
+                                    <p style={{ fontSize: '0.8125rem', color: '#64748B', marginTop: '0.5rem', lineHeight: 1.6 }}>
+                                        Perfect to test the waters and see the magic.
+                                    </p>
+                                </div>
+                                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+                                    {['3 Free Prompts', 'Standard Output'].map(f => (
+                                        <li key={f} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem', color: '#334155' }}>
+                                            <Check size={15} color="#059669" strokeWidth={2.5} style={{ flexShrink: 0 }} />
+                                            {f}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <Link to="/login" style={{ textDecoration: 'none', marginTop: 'auto' }}>
+                                    <button style={{
+                                        width: '100%', padding: '0.75rem',
+                                        borderRadius: '0.75rem', border: '1.5px solid #E2E8F0',
+                                        background: '#F8FAFC', color: '#0F172A',
+                                        fontSize: '0.875rem', fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit',
+                                        transition: 'background 0.2s, border-color 0.2s',
+                                    }}
+                                        onMouseEnter={e => { e.currentTarget.style.background = '#F1F5F9'; e.currentTarget.style.borderColor = '#CBD5E1' }}
+                                        onMouseLeave={e => { e.currentTarget.style.background = '#F8FAFC'; e.currentTarget.style.borderColor = '#E2E8F0' }}
+                                    >Start for Free</button>
+                                </Link>
+                            </div>
+                        </motion.div>
+
+                        {/* ── Card 2: Pro (highlighted) ── */}
+                        <motion.div variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } }}>
+                            <div style={{
+                                background: '#FFFFFF', borderRadius: '1.25rem',
+                                border: '2px solid #F43F6F', padding: '2rem',
+                                boxShadow: '0 8px 32px rgba(244,63,111,0.14)',
+                                display: 'flex', flexDirection: 'column', gap: '1.25rem',
+                                position: 'relative', overflow: 'hidden',
+                            }}>
+                                {/* Most popular badge */}
+                                <div style={{
+                                    position: 'absolute', top: '1rem', right: '1rem',
+                                    background: 'linear-gradient(135deg, #F43F6F, #E11D55)',
+                                    color: '#fff', fontSize: '0.65rem', fontWeight: 700,
+                                    padding: '0.2rem 0.6rem', borderRadius: '100px',
+                                    letterSpacing: '0.04em', textTransform: 'uppercase',
+                                }}>Most Popular</div>
+
+                                <div>
+                                    <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#E11D55', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.375rem' }}>Pro</p>
+                                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.25rem' }}>
+                                        <span style={{ fontSize: '2.25rem', fontWeight: 800, color: '#0F172A', lineHeight: 1 }}>RM 19</span>
+                                        <span style={{ fontSize: '0.875rem', color: '#94A3B8', fontWeight: 500 }}>/mo</span>
+                                    </div>
+                                    <p style={{ fontSize: '0.8125rem', color: '#64748B', marginTop: '0.5rem', lineHeight: 1.6 }}>
+                                        For those who need to build multiple apps fast.
+                                    </p>
+                                </div>
+                                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+                                    {['Unlimited Prompts', 'Priority Support', 'Early Access to New Features'].map(f => (
+                                        <li key={f} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem', color: '#334155' }}>
+                                            <Check size={15} color="#E11D55" strokeWidth={2.5} style={{ flexShrink: 0 }} />
+                                            {f}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <a href="#" style={{ textDecoration: 'none', marginTop: 'auto' }}>
+                                    <button style={{
+                                        width: '100%', padding: '0.75rem',
+                                        borderRadius: '0.75rem', border: 'none',
+                                        background: 'linear-gradient(135deg, #F43F6F, #E11D55)',
+                                        color: '#fff', fontSize: '0.875rem', fontWeight: 700,
+                                        cursor: 'pointer', fontFamily: 'inherit',
+                                        boxShadow: '0 4px 14px rgba(225,29,85,0.3)',
+                                        transition: 'opacity 0.2s, transform 0.15s',
+                                    }}
+                                        onMouseEnter={e => { e.currentTarget.style.opacity = '0.88'; e.currentTarget.style.transform = 'translateY(-1px)' }}
+                                        onMouseLeave={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'translateY(0)' }}
+                                    >Subscribe Now</button>
+                                </a>
+                            </div>
+                        </motion.div>
+
+                        {/* ── Card 3: Masterclass ── */}
+                        <motion.div variants={{ hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } }}>
+                            <div style={{
+                                background: '#0F172A', borderRadius: '1.25rem',
+                                border: '1px solid #1E293B', padding: '2rem',
+                                boxShadow: '0 4px 20px rgba(0,0,0,0.12)',
+                                display: 'flex', flexDirection: 'column', gap: '1.25rem',
+                            }}>
+                                <div>
+                                    <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#D4AF37', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.375rem' }}>Masterclass</p>
+                                    <p style={{ fontSize: '1.25rem', fontWeight: 800, color: '#F5F5F5', lineHeight: 1.25 }}>eCourse Canva Code</p>
+                                    <p style={{ fontSize: '0.8125rem', color: '#94A3B8', marginTop: '0.5rem', lineHeight: 1.6 }}>
+                                        Learn Canva Code from scratch + get lifetime access to VibePrompt.
+                                    </p>
+                                </div>
+                                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+                                    {['Unlimited Prompts For Life', 'Full Canva Code eCourse', 'Exclusive Community'].map(f => (
+                                        <li key={f} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem', color: '#CBD5E1' }}>
+                                            <Check size={15} color="#D4AF37" strokeWidth={2.5} style={{ flexShrink: 0 }} />
+                                            {f}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <a href="#" style={{ textDecoration: 'none', marginTop: 'auto' }}>
+                                    <button style={{
+                                        width: '100%', padding: '0.75rem',
+                                        borderRadius: '0.75rem', border: '1.5px solid #D4AF37',
+                                        background: 'transparent', color: '#D4AF37',
+                                        fontSize: '0.875rem', fontWeight: 700,
+                                        cursor: 'pointer', fontFamily: 'inherit',
+                                        transition: 'background 0.2s, color 0.2s',
+                                    }}
+                                        onMouseEnter={e => { e.currentTarget.style.background = '#D4AF37'; e.currentTarget.style.color = '#0F172A' }}
+                                        onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#D4AF37' }}
+                                    >Unlock Lifetime Magic</button>
+                                </a>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                </div>
             </section>
 
             {/* ── Footer ───────────────────────────────────────────── */}

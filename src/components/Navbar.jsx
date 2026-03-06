@@ -48,6 +48,18 @@ export default function Navbar() {
             </Link>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <a href="/#pricing" style={{
+                    textDecoration: 'none',
+                    fontSize: '0.875rem',
+                    fontWeight: 600,
+                    color: '#64748B',
+                    padding: '0.375rem 0.75rem',
+                    borderRadius: '0.5rem',
+                    transition: 'all 0.2s',
+                }}
+                    onMouseEnter={e => { e.currentTarget.style.color = '#E11D55'; e.currentTarget.style.background = '#FFF1F3' }}
+                    onMouseLeave={e => { e.currentTarget.style.color = '#64748B'; e.currentTarget.style.background = 'transparent' }}
+                >Pricing</a>
                 <Link to="/generate" style={linkStyle('/generate')}>Generator</Link>
 
                 {user ? (
