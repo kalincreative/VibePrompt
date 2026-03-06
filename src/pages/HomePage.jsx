@@ -400,7 +400,7 @@ export default function HomePage() {
                                 display: 'flex', flexDirection: 'column', gap: '1.25rem',
                             }}>
                                 <div>
-                                    <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#D4AF37', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.375rem' }}>Masterclass</p>
+                                    <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#F43F6F', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '0.375rem' }}>Masterclass</p>
                                     <p style={{ fontSize: '1.25rem', fontWeight: 800, color: '#F5F5F5', lineHeight: 1.25 }}>eCourse Canva Code</p>
                                     <p style={{ fontSize: '0.8125rem', color: '#94A3B8', marginTop: '0.5rem', lineHeight: 1.6 }}>
                                         Learn Canva Code from scratch + get lifetime access to VibePrompt.
@@ -409,7 +409,7 @@ export default function HomePage() {
                                 <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
                                     {['Unlimited Prompts For Life', 'Full Canva Code eCourse', 'Exclusive Community'].map(f => (
                                         <li key={f} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.875rem', color: '#CBD5E1' }}>
-                                            <Check size={15} color="#D4AF37" strokeWidth={2.5} style={{ flexShrink: 0 }} />
+                                            <Check size={15} color="#F43F6F" strokeWidth={2.5} style={{ flexShrink: 0 }} />
                                             {f}
                                         </li>
                                     ))}
@@ -417,14 +417,14 @@ export default function HomePage() {
                                 <a href="#" style={{ textDecoration: 'none', marginTop: 'auto' }}>
                                     <button style={{
                                         width: '100%', padding: '0.75rem',
-                                        borderRadius: '0.75rem', border: '1.5px solid #D4AF37',
-                                        background: 'transparent', color: '#D4AF37',
+                                        borderRadius: '0.75rem', border: 'none',
+                                        background: '#FFFFFF', color: '#E11D55',
                                         fontSize: '0.875rem', fontWeight: 700,
                                         cursor: 'pointer', fontFamily: 'inherit',
-                                        transition: 'background 0.2s, color 0.2s',
+                                        transition: 'background 0.2s, color 0.2s, box-shadow 0.2s',
                                     }}
-                                        onMouseEnter={e => { e.currentTarget.style.background = '#D4AF37'; e.currentTarget.style.color = '#0F172A' }}
-                                        onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#D4AF37' }}
+                                        onMouseEnter={e => { e.currentTarget.style.background = 'linear-gradient(135deg, #F43F6F, #E11D55)'; e.currentTarget.style.color = '#fff'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(225,29,85,0.35)' }}
+                                        onMouseLeave={e => { e.currentTarget.style.background = '#FFFFFF'; e.currentTarget.style.color = '#E11D55'; e.currentTarget.style.boxShadow = 'none' }}
                                     >Unlock Lifetime Magic</button>
                                 </a>
                             </div>
