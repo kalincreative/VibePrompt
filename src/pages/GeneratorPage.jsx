@@ -10,6 +10,7 @@ import StepIndicator from '../components/StepIndicator'
 import CopyButton from '../components/CopyButton'
 import VibePreviewer from '../components/VibePreviewer'
 import PaywallModal from '../components/PaywallModal'
+import AuthRequiredModal from '../components/AuthRequiredModal'
 import { appTypePresets, designVibePresets, featureTemplates } from '../utils/presets'
 import { generateMegaPrompt } from '../utils/promptEngine'
 import { useAuth } from '../hooks/useAuth'
@@ -38,6 +39,7 @@ export default function GeneratorPage() {
     const [credits, setCredits] = useState(null)   // null = loading
     const [isPro, setIsPro] = useState(false)
     const [showPaywall, setShowPaywall] = useState(false)
+    const [showAuthModal, setShowAuthModal] = useState(false)
     const { user } = useAuth()
 
     // Fetch profile credits on mount / user change
@@ -75,6 +77,12 @@ export default function GeneratorPage() {
     }
 
     const handleGenerate = async () => {
+        // ── Auth gate — guests must sign in ──────────────────────────
+        if (!user) {
+            setShowAuthModal(true)
+            return
+        }
+
         // ── Credit gate ──────────────────────────────────────────────
         if (user && isSupabaseConfigured() && !isPro) {
             if (credits !== null && credits <= 0) {
@@ -429,6 +437,7 @@ export default function GeneratorPage() {
             </div>
 
             <PaywallModal open={showPaywall} onClose={() => setShowPaywall(false)} />
+            <AuthRequiredModal open={showAuthModal} onClose={() => setShowAuthModal(false)} />
 
             <style>{`
         @media (max-width: 768px) {

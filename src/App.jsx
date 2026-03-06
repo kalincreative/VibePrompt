@@ -7,6 +7,7 @@ import GeneratorPage from './pages/GeneratorPage'
 import LoginPage from './pages/LoginPage'
 import DashboardPage from './pages/DashboardPage'
 import { supabase } from './lib/supabase'
+import ProtectedRoute from './components/ProtectedRoute'
 
 export default function App() {
     const [showVerifiedModal, setShowVerifiedModal] = useState(false)
@@ -43,7 +44,11 @@ export default function App() {
             <main style={{ flex: 1 }}>
                 <Routes>
                     <Route path="/" element={<HomePage />} />
-                    <Route path="/generate" element={<GeneratorPage />} />
+                    <Route path="/generate" element={
+                        <ProtectedRoute>
+                            <GeneratorPage />
+                        </ProtectedRoute>
+                    } />
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/dashboard" element={<DashboardPage />} />
                     <Route path="*" element={
