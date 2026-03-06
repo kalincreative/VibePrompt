@@ -9,12 +9,12 @@ const ICON_COLOR_GREY = '#64748B'
 const ICON_COLOR_PINK = '#E11D55'
 
 const features = [
-    { icon: <FormInput size={24} color={ICON_COLOR_GREY} strokeWidth={1.75} />, title: 'Guided Questionnaire', desc: 'Simple, jargon-free form that captures your app idea step by step.' },
-    { icon: <Cpu size={24} color={ICON_COLOR_GREY} strokeWidth={1.75} />, title: 'Smart Prompt Engine', desc: 'Instantly generates a Senior Developer-level instruction prompt.' },
-    { icon: <Palette size={24} color={ICON_COLOR_GREY} strokeWidth={1.75} />, title: 'Design Vibes', desc: 'Pick a visual style — Minimal, Neon, Frosted Glass, and more.' },
-    { icon: <Sparkles size={24} color={ICON_COLOR_GREY} strokeWidth={1.75} />, title: 'No Jargon Needed', desc: 'Just pick your app type. We handle the tech stack for you.' },
-    { icon: <Copy size={24} color={ICON_COLOR_GREY} strokeWidth={1.75} />, title: 'One-Click Copy', desc: 'Copy your prompt and paste it straight into Canva Code or any AI tool.' },
-    { icon: <Eye size={24} color={ICON_COLOR_GREY} strokeWidth={1.75} />, title: 'Vibe Preview', desc: 'See colors, fonts, and a preview of your chosen design vibe.' },
+    { icon: <FormInput size={24} color={ICON_COLOR_PINK} strokeWidth={1.75} />, title: 'Guided Questionnaire', desc: 'Simple, jargon-free form that captures your app idea step by step.' },
+    { icon: <Cpu size={24} color={ICON_COLOR_PINK} strokeWidth={1.75} />, title: 'Smart Prompt Engine', desc: 'Instantly generates a Senior Developer-level instruction prompt.' },
+    { icon: <Palette size={24} color={ICON_COLOR_PINK} strokeWidth={1.75} />, title: 'Design Vibes', desc: 'Pick a visual style — Minimal, Neon, Frosted Glass, and more.' },
+    { icon: <Sparkles size={24} color={ICON_COLOR_PINK} strokeWidth={1.75} />, title: 'No Jargon Needed', desc: 'Just pick your app type. We handle the tech stack for you.' },
+    { icon: <Copy size={24} color={ICON_COLOR_PINK} strokeWidth={1.75} />, title: 'One-Click Copy', desc: 'Copy your prompt and paste it straight into Canva Code or any AI tool.' },
+    { icon: <Eye size={24} color={ICON_COLOR_PINK} strokeWidth={1.75} />, title: 'Vibe Preview', desc: 'See colors, fonts, and a preview of your chosen design vibe.' },
 ]
 
 const templates = [
