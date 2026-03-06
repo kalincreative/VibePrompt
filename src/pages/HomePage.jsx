@@ -1,30 +1,35 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import GlassCard from '../components/GlassCard'
-import Button from '../components/Button'
+import {
+    BookCheck, Rocket, Building2,
+    FormInput, Cpu, Palette, Sparkles, Copy, Eye,
+} from 'lucide-react'
+
+const ICON_COLOR_GREY = '#64748B'
+const ICON_COLOR_PINK = '#E11D55'
 
 const features = [
-    { icon: '📝', title: 'Guided Questionnaire', desc: 'Simple, jargon-free form that captures your app idea step by step.' },
-    { icon: '🧠', title: 'Smart Prompt Engine', desc: 'Instantly generates a Senior Developer-level instruction prompt.' },
-    { icon: '🎨', title: 'Design Vibes', desc: 'Pick a visual style — Minimal, Neon, Frosted Glass, and more.' },
-    { icon: '🚀', title: 'No Jargon Needed', desc: 'Just pick your app type. We handle the tech stack for you.' },
-    { icon: '📋', title: 'One-Click Copy', desc: 'Copy your prompt and paste it straight into Canva Code or any AI tool.' },
-    { icon: '👁', title: 'Vibe Preview', desc: 'See colors, fonts, and a preview of your chosen design vibe.' },
+    { icon: <FormInput size={24} color={ICON_COLOR_GREY} strokeWidth={1.75} />, title: 'Guided Questionnaire', desc: 'Simple, jargon-free form that captures your app idea step by step.' },
+    { icon: <Cpu size={24} color={ICON_COLOR_GREY} strokeWidth={1.75} />, title: 'Smart Prompt Engine', desc: 'Instantly generates a Senior Developer-level instruction prompt.' },
+    { icon: <Palette size={24} color={ICON_COLOR_GREY} strokeWidth={1.75} />, title: 'Design Vibes', desc: 'Pick a visual style — Minimal, Neon, Frosted Glass, and more.' },
+    { icon: <Sparkles size={24} color={ICON_COLOR_GREY} strokeWidth={1.75} />, title: 'No Jargon Needed', desc: 'Just pick your app type. We handle the tech stack for you.' },
+    { icon: <Copy size={24} color={ICON_COLOR_GREY} strokeWidth={1.75} />, title: 'One-Click Copy', desc: 'Copy your prompt and paste it straight into Canva Code or any AI tool.' },
+    { icon: <Eye size={24} color={ICON_COLOR_GREY} strokeWidth={1.75} />, title: 'Vibe Preview', desc: 'See colors, fonts, and a preview of your chosen design vibe.' },
 ]
 
 const templates = [
     {
-        icon: '📊',
+        icon: <BookCheck size={32} color={ICON_COLOR_PINK} strokeWidth={1.5} />,
         title: 'Event Registration System',
         desc: 'A multi-step form to collect attendee details, save to Google Sheets, and auto-send a confirmation email.',
     },
     {
-        icon: '🚀',
+        icon: <Rocket size={32} color={ICON_COLOR_PINK} strokeWidth={1.5} />,
         title: 'High-Converting Sales Page',
         desc: 'A landing page with hero, testimonials, pricing tables, and a CTA button redirecting to a payment gateway.',
     },
     {
-        icon: '🏢',
+        icon: <Building2 size={32} color={ICON_COLOR_PINK} strokeWidth={1.5} />,
         title: 'Corporate Inquiry Portal',
         desc: 'A professional contact page with a dynamic dropdown form, connected to a Google Sheet database.',
     },
@@ -105,10 +110,35 @@ export default function HomePage() {
                     style={{ position: 'relative', zIndex: 1, display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}
                 >
                     <Link to="/generate" style={{ textDecoration: 'none' }}>
-                        <Button variant="primary">🚀 Start Building</Button>
+                        <button style={{
+                            padding: '0.75rem 1.5rem', borderRadius: '0.75rem', border: 'none',
+                            background: 'linear-gradient(135deg, #F43F6F, #E11D55)',
+                            color: '#fff', fontWeight: 700, fontSize: '0.9375rem',
+                            cursor: 'pointer', fontFamily: 'inherit',
+                            display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+                            boxShadow: '0 4px 14px rgba(225,29,85,0.3)',
+                            transition: 'opacity 0.2s',
+                        }}
+                            onMouseEnter={e => e.currentTarget.style.opacity = '0.88'}
+                            onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                        >
+                            <Rocket size={16} strokeWidth={2} />
+                            Start Building
+                        </button>
                     </Link>
                     <a href="#features" style={{ textDecoration: 'none' }}>
-                        <Button variant="ghost">How It Works ↓</Button>
+                        <button style={{
+                            padding: '0.75rem 1.5rem', borderRadius: '0.75rem',
+                            border: '1.5px solid #E2E8F0', background: '#F8FAFC',
+                            color: '#0F172A', fontWeight: 700, fontSize: '0.9375rem',
+                            cursor: 'pointer', fontFamily: 'inherit',
+                            transition: 'background 0.2s',
+                        }}
+                            onMouseEnter={e => e.currentTarget.style.background = '#F1F5F9'}
+                            onMouseLeave={e => e.currentTarget.style.background = '#F8FAFC'}
+                        >
+                            How It Works ↓
+                        </button>
                     </a>
                 </motion.div>
 
@@ -159,7 +189,7 @@ export default function HomePage() {
                         {templates.map(t => (
                             <motion.div key={t.title} variants={item}>
                                 <div className="template-card">
-                                    <span style={{ fontSize: '2.25rem', display: 'block', marginBottom: '1rem' }}>{t.icon}</span>
+                                    <div style={{ marginBottom: '1rem', display: 'flex' }}>{t.icon}</div>
                                     <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#0F172A', marginBottom: '0.5rem' }}>{t.title}</h3>
                                     <p style={{ fontSize: '0.8125rem', color: '#64748B', lineHeight: 1.6, marginBottom: '1.25rem', flexGrow: 1 }}>{t.desc}</p>
                                     <Link to="/generate" style={{ textDecoration: 'none' }}>
@@ -168,8 +198,7 @@ export default function HomePage() {
                                             borderRadius: '0.625rem', border: '1.5px solid #FECDD6',
                                             background: '#FFF1F3', color: '#E11D55',
                                             fontSize: '0.8125rem', fontWeight: 700, cursor: 'pointer',
-                                            transition: 'all 0.2s',
-                                            fontFamily: 'inherit',
+                                            transition: 'all 0.2s', fontFamily: 'inherit',
                                         }}
                                             onMouseEnter={e => { e.currentTarget.style.background = '#E11D55'; e.currentTarget.style.color = '#fff' }}
                                             onMouseLeave={e => { e.currentTarget.style.background = '#FFF1F3'; e.currentTarget.style.color = '#E11D55' }}
@@ -216,7 +245,7 @@ export default function HomePage() {
                                 onMouseEnter={e => { e.currentTarget.style.boxShadow = '0 4px 20px rgba(244,63,111,0.08)'; e.currentTarget.style.transform = 'translateY(-2px)' }}
                                 onMouseLeave={e => { e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.02)'; e.currentTarget.style.transform = 'translateY(0)' }}
                             >
-                                <span style={{ fontSize: '1.75rem', display: 'block', marginBottom: '0.75rem' }}>{f.icon}</span>
+                                <div style={{ marginBottom: '0.875rem' }}>{f.icon}</div>
                                 <h3 style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#0F172A', marginBottom: '0.375rem' }}>{f.title}</h3>
                                 <p style={{ fontSize: '0.8125rem', color: '#64748B', lineHeight: 1.55 }}>{f.desc}</p>
                             </div>
@@ -229,7 +258,17 @@ export default function HomePage() {
                     style={{ textAlign: 'center', marginTop: '3rem' }}
                 >
                     <Link to="/generate" style={{ textDecoration: 'none' }}>
-                        <Button variant="primary">✦ Generate Your Prompt</Button>
+                        <button style={{
+                            padding: '0.75rem 1.75rem', borderRadius: '0.75rem', border: 'none',
+                            background: 'linear-gradient(135deg, #F43F6F, #E11D55)',
+                            color: '#fff', fontWeight: 700, fontSize: '0.9375rem',
+                            cursor: 'pointer', fontFamily: 'inherit',
+                            display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+                            boxShadow: '0 4px 14px rgba(225,29,85,0.3)',
+                        }}>
+                            <Sparkles size={16} strokeWidth={2} />
+                            Generate Your Prompt
+                        </button>
                     </Link>
                 </motion.div>
             </section>

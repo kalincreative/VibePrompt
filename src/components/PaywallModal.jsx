@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
+import { Lock, GraduationCap, Zap } from 'lucide-react'
 
 export default function PaywallModal({ open, onClose }) {
     return (
@@ -55,14 +56,18 @@ export default function PaywallModal({ open, onClose }) {
                                 aria-label="Close"
                             >×</button>
 
-                            {/* Stars decoration */}
+                            {/* Lock icon */}
                             <motion.div
                                 initial={{ scale: 0 }}
-                                animate={{ scale: [0, 1.3, 1] }}
-                                transition={{ delay: 0.1, duration: 0.5 }}
-                                style={{ fontSize: '3rem', marginBottom: '0.875rem', lineHeight: 1 }}
+                                animate={{ scale: [0, 1.2, 1] }}
+                                transition={{ delay: 0.1, duration: 0.45 }}
+                                style={{
+                                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                                    width: '3.5rem', height: '3.5rem', borderRadius: '50%',
+                                    background: '#FFF1F3', marginBottom: '1rem',
+                                }}
                             >
-                                ✨
+                                <Lock size={24} color="#E11D55" strokeWidth={1.75} />
                             </motion.div>
 
                             {/* Headline */}
@@ -70,7 +75,7 @@ export default function PaywallModal({ open, onClose }) {
                                 fontSize: '1.375rem', fontWeight: 800, color: '#0F172A',
                                 marginBottom: '0.625rem', lineHeight: 1.25,
                             }}>
-                                You've run out of free magic! ✨
+                                You've run out of free magic.
                             </h2>
 
                             {/* Description */}
@@ -90,7 +95,8 @@ export default function PaywallModal({ open, onClose }) {
                                 color: '#E11D55', fontSize: '0.75rem', fontWeight: 700,
                                 marginBottom: '1.75rem',
                             }}>
-                                🔒 0 / 3 Credits Remaining
+                                <Lock size={12} strokeWidth={2.5} />
+                                0 / 3 Credits Remaining
                             </div>
 
                             {/* CTA 1 — Primary */}
@@ -103,11 +109,13 @@ export default function PaywallModal({ open, onClose }) {
                                     cursor: 'pointer', fontFamily: 'inherit',
                                     boxShadow: '0 6px 18px rgba(225,29,85,0.35)',
                                     transition: 'opacity 0.2s, transform 0.15s',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
                                 }}
                                     onMouseEnter={e => { e.currentTarget.style.opacity = '0.88'; e.currentTarget.style.transform = 'translateY(-1px)' }}
                                     onMouseLeave={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.transform = 'translateY(0)' }}
                                 >
-                                    🎓 Join Masterclass (Lifetime Access)
+                                    <GraduationCap size={18} strokeWidth={2} />
+                                    Join Masterclass (Lifetime Access)
                                 </button>
                             </a>
 
@@ -121,11 +129,13 @@ export default function PaywallModal({ open, onClose }) {
                                     color: '#0F172A', fontSize: '0.9375rem', fontWeight: 700,
                                     cursor: 'pointer', fontFamily: 'inherit',
                                     transition: 'background 0.2s, border-color 0.2s',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
                                 }}
                                     onMouseEnter={e => { e.currentTarget.style.background = '#F1F5F9'; e.currentTarget.style.borderColor = '#CBD5E1' }}
                                     onMouseLeave={e => { e.currentTarget.style.background = '#F8FAFC'; e.currentTarget.style.borderColor = '#E2E8F0' }}
                                 >
-                                    ⚡ Subscribe for RM19/mo
+                                    <Zap size={18} strokeWidth={2} />
+                                    Subscribe for RM19/mo
                                 </button>
                             </a>
 
