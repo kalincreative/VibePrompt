@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Palette, Layers, FileText } from 'lucide-react'
+import { Palette, Layers, FileText, Sparkles, Server, MonitorSmartphone, Lightbulb, Lock, Zap } from 'lucide-react'
 import GlassCard from '../components/GlassCard'
 import Button from '../components/Button'
 import InputField from '../components/InputField'
@@ -320,7 +320,10 @@ export default function GeneratorPage() {
                         {/* Header */}
                         <GlassCard highlight>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
-                                <h2 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#0F172A' }}>✨ Your 2-Block Mega Prompt</h2>
+                                <h2 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                                    <Sparkles size={18} color="#E11D55" strokeWidth={2} />
+                                    Your 2-Block Mega Prompt
+                                </h2>
                                 <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
                                     <CopyButton text={block1 + '\n\n---\n\n' + block2} />
                                     <Button variant="ghost" onClick={handleReset}>↺ New Prompt</Button>
@@ -338,7 +341,9 @@ export default function GeneratorPage() {
                                         border: `1px solid ${credits === 0 ? '#FECDD6' : credits === 1 ? '#FDE68A' : '#E2E8F0'}`,
                                         color: credits === 0 ? '#E11D55' : credits === 1 ? '#D97706' : '#64748B',
                                     }}>
-                                        {credits === 0 ? '🔒' : '⚡'} Credits Left: {credits}/3
+                                        {credits === 0
+                                            ? <><Lock size={11} strokeWidth={2.5} style={{ display: 'inline', marginRight: '0.25rem', verticalAlign: 'middle' }} /> Credits Left: {credits}/3</>
+                                            : <><Zap size={11} strokeWidth={2.5} style={{ display: 'inline', marginRight: '0.25rem', verticalAlign: 'middle' }} /> Credits Left: {credits}/3</>}
                                     </span>
                                 )}
                                 {user && isPro && (
@@ -362,7 +367,10 @@ export default function GeneratorPage() {
                         {/* Block 1 — GAS Backend Setup */}
                         <GlassCard>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-                                <h3 style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#0F172A' }}>📋 Block 1 — Backend Setup (GAS)</h3>
+                                <h3 style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                                    <Server size={16} color="#E11D55" strokeWidth={2} />
+                                    Block 1 — Backend Setup (GAS)
+                                </h3>
                                 <CopyButton text={block1} />
                             </div>
                             <pre style={{
@@ -379,7 +387,10 @@ export default function GeneratorPage() {
                         {/* Block 2 — Canva Code Frontend Prompts */}
                         <GlassCard>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-                                <h3 style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#0F172A' }}>🎨 Block 2 — Frontend Prompt Generator (Canva Code)</h3>
+                                <h3 style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                                    <MonitorSmartphone size={16} color="#E11D55" strokeWidth={2} />
+                                    Block 2 — Frontend Prompt Generator (Canva Code)
+                                </h3>
                                 <CopyButton text={block2} />
                             </div>
                             <pre style={{
@@ -398,7 +409,10 @@ export default function GeneratorPage() {
                             padding: '1rem 1.125rem', background: '#FFF1F3', border: '1px solid #FECDD6',
                             borderRadius: '0.75rem', fontSize: '0.8125rem', color: '#64748B', lineHeight: 1.75,
                         }}>
-                            <strong style={{ color: '#E11D55', fontSize: '0.875rem' }}>💡 How to Use These Prompts</strong>
+                            <strong style={{ color: '#E11D55', fontSize: '0.875rem', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                                <Lightbulb size={15} color="#E11D55" strokeWidth={2} />
+                                How to Use These Prompts
+                            </strong>
                             <ol style={{ marginTop: '0.5rem', paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
                                 <li><strong style={{ color: '#0F172A' }}>Step 1 — Setup:</strong> Open ChatGPT or Claude. Paste <strong>Block 1</strong> and answer the follow-up questions (Sheet ID, Folder ID, etc.).</li>
                                 <li><strong style={{ color: '#0F172A' }}>Step 2 — Deploy:</strong> Copy the GAS code, paste into Google Apps Script, and deploy as a Web App. Copy the Web App URL.</li>
