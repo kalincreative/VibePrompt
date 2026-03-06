@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Copy, Check } from 'lucide-react'
 
 export default function CopyButton({ text, label = 'Copy Prompt' }) {
     const [copied, setCopied] = useState(false)
@@ -56,8 +57,11 @@ export default function CopyButton({ text, label = 'Copy Prompt' }) {
                         ✓ Copied!
                     </motion.span>
                 ) : (
-                    <motion.span key="copy" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
-                        📋 {label}
+                    <motion.span key="copy" initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem' }}
+                    >
+                        <Copy size={15} strokeWidth={2} />
+                        {label}
                     </motion.span>
                 )}
             </AnimatePresence>

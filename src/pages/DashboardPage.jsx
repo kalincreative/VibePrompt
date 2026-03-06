@@ -5,6 +5,7 @@ import GlassCard from '../components/GlassCard'
 import Button from '../components/Button'
 import CopyButton from '../components/CopyButton'
 import LoadingSpinner from '../components/LoadingSpinner'
+import { FileText, Trash2, Rocket } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 import { supabase, isSupabaseConfigured } from '../lib/supabase'
 
@@ -69,7 +70,10 @@ export default function DashboardPage() {
         <div style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem 1.25rem 4rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '0.75rem' }}>
                 <div>
-                    <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A' }}>📋 Your Prompts</h1>
+                    <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <FileText size={22} color="#E11D55" strokeWidth={2} />
+                        Your Prompts
+                    </h1>
                     <p style={{ color: '#64748B', fontSize: '0.875rem' }}>All your generated prompts, saved automatically.</p>
                 </div>
                 <Link to="/generate" style={{ textDecoration: 'none' }}>
@@ -82,7 +86,11 @@ export default function DashboardPage() {
             ) : prompts.length === 0 ? (
                 <GlassCard>
                     <div style={{ textAlign: 'center', padding: '2rem 0' }}>
-                        <span style={{ fontSize: '3rem', display: 'block', marginBottom: '1rem' }}>🚀</span>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
+                            <div style={{ width: '3.5rem', height: '3.5rem', borderRadius: '50%', background: '#FFF1F3', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <Rocket size={24} color="#E11D55" strokeWidth={1.75} />
+                            </div>
+                        </div>
                         <h3 style={{ fontSize: '1.125rem', fontWeight: 700, color: '#0F172A', marginBottom: '0.5rem' }}>No prompts yet</h3>
                         <p style={{ color: '#64748B', fontSize: '0.875rem', marginBottom: '1.25rem' }}>Generate your first prompt and it will appear here.</p>
                         <Link to="/generate" style={{ textDecoration: 'none' }}>
@@ -119,7 +127,7 @@ export default function DashboardPage() {
                                                 {expandedId === prompt.id ? 'Hide' : 'View'}
                                             </Button>
                                             <Button variant="danger" onClick={() => deletePrompt(prompt.id)}>
-                                                🗑
+                                                <Trash2 size={15} strokeWidth={2} />
                                             </Button>
                                         </div>
                                     </div>
