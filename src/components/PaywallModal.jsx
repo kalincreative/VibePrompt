@@ -99,8 +99,8 @@ export default function PaywallModal({ open, onClose }) {
                                 0 / 3 Credits Remaining
                             </div>
 
-                            {/* CTA 1 — Primary */}
-                            <a href="#" style={{ textDecoration: 'none', display: 'block', marginBottom: '0.625rem' }}>
+                            {/* CTA 1 — Primary: Masterclass */}
+                            <a href="https://kalinacademy.com" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'block', marginBottom: '0.625rem' }}>
                                 <button style={{
                                     width: '100%', padding: '0.875rem 1.5rem',
                                     borderRadius: '0.75rem', border: 'none',
@@ -119,8 +119,8 @@ export default function PaywallModal({ open, onClose }) {
                                 </button>
                             </a>
 
-                            {/* CTA 2 — Secondary */}
-                            <a href="#" style={{ textDecoration: 'none', display: 'block' }}>
+                            {/* CTA 2 — Secondary: Subscribe RM19/mo */}
+                            <a href="https://createandconvert.my/form/vp" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'block' }}>
                                 <button style={{
                                     width: '100%', padding: '0.8125rem 1.5rem',
                                     borderRadius: '0.75rem',
