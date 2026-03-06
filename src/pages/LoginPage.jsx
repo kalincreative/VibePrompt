@@ -5,6 +5,7 @@ import GlassCard from '../components/GlassCard'
 import Button from '../components/Button'
 import InputField from '../components/InputField'
 import { useAuth } from '../hooks/useAuth'
+import { LogIn, UserPlus } from 'lucide-react'
 
 export default function LoginPage() {
     const [isLogin, setIsLogin] = useState(true)
@@ -43,8 +44,10 @@ export default function LoginPage() {
         }}>
             <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} style={{ width: '100%', maxWidth: '420px' }}>
                 <GlassCard highlight>
-                    <h1 style={{ fontSize: '1.25rem', fontWeight: 800, textAlign: 'center', marginBottom: '0.375rem', color: '#0F172A' }}>
-                        {isLogin ? '👋 Welcome Back' : '🚀 Create Account'}
+                    <h1 style={{ fontSize: '1.25rem', fontWeight: 800, textAlign: 'center', marginBottom: '0.375rem', color: '#0F172A', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem' }}>
+                        {isLogin
+                            ? <><LogIn size={20} color="#E11D55" strokeWidth={2} /> Welcome Back</>
+                            : <><UserPlus size={20} color="#E11D55" strokeWidth={2} /> Create Account</>}
                     </h1>
                     <p style={{ textAlign: 'center', color: '#64748B', fontSize: '0.8125rem', marginBottom: '1.5rem' }}>
                         {isLogin ? 'Log in to save your prompts.' : 'Sign up to save and revisit prompts.'}
