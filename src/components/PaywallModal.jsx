@@ -100,7 +100,7 @@ export default function PaywallModal({ open, onClose }) {
                             </div>
 
                             {/* CTA 1 — Primary: Masterclass */}
-                            <a href="https://kalinacademy.com" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'block', marginBottom: '0.625rem' }}>
+                            <a href="https://createandconvert.my" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', display: 'block', marginBottom: '0.625rem' }}>
                                 <button style={{
                                     width: '100%', padding: '0.875rem 1.5rem',
                                     borderRadius: '0.75rem', border: 'none',
