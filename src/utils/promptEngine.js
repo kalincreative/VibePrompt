@@ -66,18 +66,18 @@ export function generateMegaPrompt(formData) {
 Client's Initial Concept: "${description}"${additionalNotes}
 
 PHASE 1: BRAINSTORMING (DO THIS FIRST)
-Before writing any code or generating Canva prompts, analyze my concept. Ask me up to 4 clarifying questions to finalize the UI scope (sections, form fields, user flow).
+Before writing any code or generating Canva prompts, analyze my concept. Ask me specific, comprehensive, and as many clarifying questions as needed to finalize the UI scope (sections, form fields, user flow) and any required integrations.
 (Stop here and wait for my reply. DO NOT generate any GAS code or setup guides yet).
 
-PHASE 2: DATABASE SETUP & ID REQUEST (DO THIS AFTER PHASE 1)
-Once we agree on the scope, guide me step-by-step on how to set up the database (e.g., creating a Google Sheet, naming the columns based on our agreed fields). Then, teach me how to find the exact Sheet ID. Finally, explicitly ask me to reply with that exact Sheet ID.
-(Stop here and wait for me to provide the ID. DO NOT generate the GAS code yet).
+PHASE 2: DYNAMIC DATABASE SETUP & ID REQUEST (DO THIS AFTER PHASE 1)
+Once we agree on the scope, guide me step-by-step on how to set up the necessary database or integrations (e.g., creating a Google Sheet, naming columns, Drive folders) based on our agreed fields. Then, teach me how to find the exact IDs. Finally, explicitly ask me to reply with ALL required IDs.
+(Stop here and wait for me to provide the IDs. DO NOT generate the GAS code yet).
 
-PHASE 3: FULL GAS CODE GENERATION (DO THIS AFTER I PROVIDE THE ID)
-Once I provide the ID, give me the complete doGet(e) and doPost(e) GAS code.
-Inject the exact ID I provided directly into the script.
-Required Logic: ${sheetLogic}${emailLogic ? `\n${emailLogic}` : ''}${pdfLogic ? `\n${pdfLogic}` : ''}
-CRITICAL API RULE: The doPost(e) function MUST return a proper JSON response. On success, return exactly: {"status": "success", "message": "Success"}. On error, return: {"status": "error", "message": "Error details"}.
+PHASE 3: FULL GAS CODE GENERATION (DO THIS AFTER I PROVIDE THE IDs)
+Once I provide the IDs, give me the complete doGet(e) and doPost(e) GAS code.
+Inject the exact IDs I provided directly into the script.
+Required Logic: ${requiredLogic}
+CRITICAL API RULE: The doPost(e) function MUST return a proper JSON response using ContentService. On success, return exactly: {"status": "success", "message": "Success"}. On error, return: {"status": "error", "message": "Error details"}.
 Remind me to deploy it as a Web App to get the URL.`
 
   // ── BLOCK 2: Canva Code Frontend Prompt ─────────────────────────────
@@ -94,8 +94,10 @@ Crucial Rule: For any forms, MUST build a hidden error message box, a hidden suc
 Instruct the AI to generate this prompt using this EXACT structure:
 "Perfect, now add the JavaScript integration for the layout above. Provide strict rules:
 Use this exact GAS URL: [YOUR GAS WEBAPP URL HERE]
-Fetch Rules: Gather form data into a flat JSON object matching our agreed fields. Send using \`JSON.stringify(formData)\`. STRICTLY FORBID \`URLSearchParams\`, \`FormData()\`, or \`'Content-Type': 'application/json'\` headers. STRICTLY FORBID \`mode: 'no-cors'\`. Use standard POST.
-Success Handling: Parse the response JSON. If successful, hide the form and display the success container. If error, show the error box."
+Fetch Rules: Gather form data into a flat JSON object matching our agreed fields. Send using JSON.stringify(formData). STRICTLY FORBID URLSearchParams, FormData(), or 'Content-Type': 'application/json' headers. STRICTLY FORBID mode: 'no-cors'. Use standard POST.
+Success Handling & Failsafe (CRITICAL): The backend returns {"status": "success"}. You MUST check 'if (result.status === "success")'. If successful, hide the form and display the success container.
+Failsafe Logic: Wrap the fetch request in a try/catch/finally block. Inside the finally block, MUST explicitly hide the 'Loading...' button and show the original submit button if the request failed, so the user is never stuck. If error, show the error box."
+
 Please format your response by giving me 'Prompt 1' and 'Prompt 2' in copyable blocks.`
 
   return { block1, block2 }
