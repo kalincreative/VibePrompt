@@ -56,7 +56,7 @@ export default function HomePage() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 textAlign: 'center',
-                padding: '5rem 1.25rem 3rem',
+                padding: '5rem 0 3rem',
                 minHeight: '75vh',
                 overflow: 'hidden',
             }}>
@@ -65,102 +65,104 @@ export default function HomePage() {
                 <div className="mesh-blob blob-2" />
                 <div className="mesh-blob blob-3" />
 
-                {/* Badge */}
-                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-                    style={{
-                        position: 'relative', zIndex: 1, display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-                        padding: '0.5rem 1rem', borderRadius: '100px',
-                        background: '#FFF1F3', border: '1px solid #FECDD6',
-                        color: '#E11D55', fontSize: '0.75rem', fontWeight: 700,
-                        letterSpacing: '0.03em', marginBottom: '1.5rem',
-                    }}
-                >
-                    ✦ Your Canva Code Prompt Superpower
-                </motion.div>
-
-                {/* Headline */}
-                <motion.h1
-                    initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-                    style={{
-                        position: 'relative', zIndex: 1,
-                        fontSize: 'clamp(2rem, 6vw, 3.5rem)', fontWeight: 800, lineHeight: 1.1,
-                        letterSpacing: '-0.02em', marginBottom: '1.25rem', maxWidth: '700px', color: '#0F172A',
-                    }}
-                >
-                    Turn Canva Designs Into{' '}
-                    <span style={{ background: 'linear-gradient(135deg, #F43F6F, #E11D55)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                        Fully Functional Apps
-                    </span>
-                </motion.h1>
-
-                {/* Subtitle */}
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
-                    style={{
-                        position: 'relative', zIndex: 1,
-                        fontSize: 'clamp(0.9375rem, 2vw, 1.125rem)', color: '#64748B',
-                        maxWidth: '580px', lineHeight: 1.65, marginBottom: '2rem',
-                    }}
-                >
-                    Stop struggling with complex coding. VibePrompt generates precise, structured prompts that guide AI and Canva Code to build your frontend layouts and backend in minutes.
-                </motion.p>
-
-                {/* CTA */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}
-                    style={{ position: 'relative', zIndex: 1, display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}
-                >
-                    <Link to="/generate" style={{ textDecoration: 'none' }}>
-                        <button style={{
-                            padding: '0.75rem 1.5rem', borderRadius: '0.75rem', border: 'none',
-                            background: 'linear-gradient(135deg, #F43F6F, #E11D55)',
-                            color: '#fff', fontWeight: 700, fontSize: '0.9375rem',
-                            cursor: 'pointer', fontFamily: 'inherit',
+                <div className="relative z-10 w-full max-w-md sm:max-w-4xl mx-auto px-6 sm:px-8 flex flex-col items-center">
+                    {/* Badge */}
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+                        style={{
                             display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-                            boxShadow: '0 4px 14px rgba(225,29,85,0.3)',
-                            transition: 'opacity 0.2s',
+                            padding: '0.5rem 1rem', borderRadius: '100px',
+                            background: '#FFF1F3', border: '1px solid #FECDD6',
+                            color: '#E11D55', fontSize: '0.75rem', fontWeight: 700,
+                            letterSpacing: '0.03em', marginBottom: '1.5rem',
                         }}
-                            onMouseEnter={e => e.currentTarget.style.opacity = '0.88'}
-                            onMouseLeave={e => e.currentTarget.style.opacity = '1'}
-                        >
-                            <Rocket size={16} strokeWidth={2} />
-                            Start Building
-                        </button>
-                    </Link>
-                    <a href="#features" style={{ textDecoration: 'none' }}>
-                        <button style={{
-                            padding: '0.75rem 1.5rem', borderRadius: '0.75rem',
-                            border: '1.5px solid #E2E8F0', background: '#F8FAFC',
-                            color: '#0F172A', fontWeight: 700, fontSize: '0.9375rem',
-                            cursor: 'pointer', fontFamily: 'inherit',
-                            transition: 'background 0.2s',
-                        }}
-                            onMouseEnter={e => e.currentTarget.style.background = '#F1F5F9'}
-                            onMouseLeave={e => e.currentTarget.style.background = '#F8FAFC'}
-                        >
-                            How It Works ↓
-                        </button>
-                    </a>
-                </motion.div>
+                    >
+                        ✦ Your Canva Code Prompt Superpower
+                    </motion.div>
 
-                {/* Tool pills */}
-                <motion.div
-                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}
-                    style={{ position: 'relative', zIndex: 1, display: 'flex', gap: '0.75rem', marginTop: '3rem', flexWrap: 'wrap', justifyContent: 'center' }}
-                >
-                    {['Booking Calendar', 'Corporate Website', 'Landing Page', 'Invitation Form'].map((tool, i) => (
-                        <motion.span key={tool}
-                            animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 3, delay: i * 0.3 }}
-                            style={{
-                                padding: '0.375rem 0.875rem', borderRadius: '100px',
-                                background: '#F8FAFC', border: '1px solid #E2E8F0',
-                                color: '#64748B', fontSize: '0.75rem', fontWeight: 600,
+                    {/* Headline */}
+                    <motion.h1
+                        initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
+                        className="w-full"
+                        style={{
+                            fontSize: 'clamp(2rem, 6vw, 3.5rem)', fontWeight: 800, lineHeight: 1.1,
+                            letterSpacing: '-0.02em', marginBottom: '1.25rem', maxWidth: '700px', color: '#0F172A',
+                        }}
+                    >
+                        Turn Canva Designs Into{' '}
+                        <span style={{ background: 'linear-gradient(135deg, #F43F6F, #E11D55)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                            Fully Functional Apps
+                        </span>
+                    </motion.h1>
+
+                    {/* Subtitle */}
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
+                        className="w-full"
+                        style={{
+                            fontSize: 'clamp(0.9375rem, 2vw, 1.125rem)', color: '#64748B',
+                            maxWidth: '580px', lineHeight: 1.65, marginBottom: '2rem',
+                        }}
+                    >
+                        Stop struggling with complex coding. VibePrompt generates precise, structured prompts that guide AI and Canva Code to build your frontend layouts and backend in minutes.
+                    </motion.p>
+
+                    {/* CTA */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}
+                        className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto max-w-xs sm:max-w-none mx-auto justify-center"
+                    >
+                        <Link to="/generate" className="w-full sm:w-auto" style={{ textDecoration: 'none' }}>
+                            <button className="w-full sm:w-auto" style={{
+                                padding: '0.75rem 1.5rem', borderRadius: '0.75rem', border: 'none',
+                                background: 'linear-gradient(135deg, #F43F6F, #E11D55)',
+                                color: '#fff', fontWeight: 700, fontSize: '0.9375rem',
+                                cursor: 'pointer', fontFamily: 'inherit',
+                                display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                                boxShadow: '0 4px 14px rgba(225,29,85,0.3)',
+                                transition: 'opacity 0.2s',
                             }}
-                        >
-                            {tool}
-                        </motion.span>
-                    ))}
-                </motion.div>
+                                onMouseEnter={e => e.currentTarget.style.opacity = '0.88'}
+                                onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                            >
+                                <Rocket size={16} strokeWidth={2} />
+                                Start Building
+                            </button>
+                        </Link>
+                        <a href="#features" className="w-full sm:w-auto" style={{ textDecoration: 'none' }}>
+                            <button className="w-full sm:w-auto" style={{
+                                padding: '0.75rem 1.5rem', borderRadius: '0.75rem',
+                                border: '1.5px solid #E2E8F0', background: '#F8FAFC',
+                                color: '#0F172A', fontWeight: 700, fontSize: '0.9375rem',
+                                cursor: 'pointer', fontFamily: 'inherit',
+                                transition: 'background 0.2s',
+                            }}
+                                onMouseEnter={e => e.currentTarget.style.background = '#F1F5F9'}
+                                onMouseLeave={e => e.currentTarget.style.background = '#F8FAFC'}
+                            >
+                                How It Works ↓
+                            </button>
+                        </a>
+                    </motion.div>
+
+                    {/* Tool pills */}
+                    <motion.div
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}
+                        style={{ display: 'flex', gap: '0.75rem', marginTop: '3rem', flexWrap: 'wrap', justifyContent: 'center' }}
+                    >
+                        {['Booking Calendar', 'Corporate Website', 'Landing Page', 'Invitation Form'].map((tool, i) => (
+                            <motion.span key={tool}
+                                animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 3, delay: i * 0.3 }}
+                                style={{
+                                    padding: '0.375rem 0.875rem', borderRadius: '100px',
+                                    background: '#F8FAFC', border: '1px solid #E2E8F0',
+                                    color: '#64748B', fontSize: '0.75rem', fontWeight: 600,
+                                }}
+                            >
+                                {tool}
+                            </motion.span>
+                        ))}
+                    </motion.div>
+                </div>
             </section>
 
             {/* ── Ready-to-Use Templates ────────────────────────────── */}
