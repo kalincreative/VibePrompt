@@ -65,7 +65,7 @@ export default function HomePage() {
                 <div className="mesh-blob blob-2" />
                 <div className="mesh-blob blob-3" />
 
-                <div className="relative z-10 w-full max-w-md sm:max-w-4xl mx-auto px-6 sm:px-8 flex flex-col items-center">
+                <div className="hero-content">
                     {/* Badge */}
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
                         style={{
@@ -107,12 +107,10 @@ export default function HomePage() {
                     </motion.p>
 
                     {/* CTA */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }}
-                        className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto max-w-xs sm:max-w-none mx-auto justify-center"
-                    >
-                        <Link to="/generate" className="w-full sm:w-auto" style={{ textDecoration: 'none' }}>
-                            <button className="w-full sm:w-auto" style={{
+                    <div className="hero-buttons">
+                        <Link to="/generate" style={{ textDecoration: 'none', display: 'flex' }}>
+                            <button style={{
+                                width: '100%',
                                 padding: '0.75rem 1.5rem', borderRadius: '0.75rem', border: 'none',
                                 background: 'linear-gradient(135deg, #F43F6F, #E11D55)',
                                 color: '#fff', fontWeight: 700, fontSize: '0.9375rem',
@@ -128,8 +126,9 @@ export default function HomePage() {
                                 Start Building
                             </button>
                         </Link>
-                        <a href="#features" className="w-full sm:w-auto" style={{ textDecoration: 'none' }}>
-                            <button className="w-full sm:w-auto" style={{
+                        <a href="#features" style={{ textDecoration: 'none', display: 'flex' }}>
+                            <button style={{
+                                width: '100%',
                                 padding: '0.75rem 1.5rem', borderRadius: '0.75rem',
                                 border: '1.5px solid #E2E8F0', background: '#F8FAFC',
                                 color: '#0F172A', fontWeight: 700, fontSize: '0.9375rem',
@@ -142,7 +141,7 @@ export default function HomePage() {
                                 How It Works ↓
                             </button>
                         </a>
-                    </motion.div>
+                    </div>
 
                     {/* Tool pills */}
                     <motion.div
@@ -445,6 +444,42 @@ export default function HomePage() {
 
             {/* Styles */}
             <style>{`
+        .hero-content {
+          position: relative;
+          z-index: 1;
+          width: 100%;
+          padding: 0 1.5rem;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          box-sizing: border-box;
+        }
+        .hero-buttons {
+          display: flex;
+          flex-direction: column;
+          gap: 0.75rem;
+          width: 100%;
+          max-width: 320px;
+          margin: 0 auto;
+        }
+        @media (min-width: 640px) {
+          .hero-content {
+            padding: 0 2.5rem;
+            max-width: 900px;
+          }
+          .hero-buttons {
+            flex-direction: row;
+            max-width: none;
+            justify-content: center;
+          }
+          .hero-buttons > * {
+            width: auto;
+          }
+          .hero-buttons button {
+            width: auto !important;
+          }
+        }
         .templates-grid {
           display: grid;
           grid-template-columns: 1fr;
