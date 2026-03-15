@@ -470,7 +470,7 @@ export default function GeneratorPage() {
                             </div>
                             <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.75rem', flexWrap: 'wrap', alignItems: 'center' }}>
                                 <span style={{ padding: '0.2rem 0.625rem', borderRadius: '100px', background: '#ECFDF5', border: '1px solid #6EE7B7', color: '#059669', fontSize: '0.6875rem', fontWeight: 600 }}>
-                                    ✦ Canva Code + Google Apps Script
+                                    {formData.appMode === 'frontend' ? '✦ Canva Code' : '✦ Canva Code + Google Apps Script'}
                                 </span>
                                 {/* Credits badge */}
                                 {user && credits !== null && !isPro && (
@@ -508,7 +508,7 @@ export default function GeneratorPage() {
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                                 <h3 style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                                     <Server size={16} color="#E11D55" strokeWidth={2} />
-                                    Block 1 — Backend Setup (GAS)
+                                    {formData.appMode === 'frontend' ? 'Prompt 1 — Paste into Canva Code AI first (UI Layout)' : 'Block 1 — Backend Setup (GAS)'}
                                 </h3>
                                 <CopyButton text={block1} />
                             </div>
@@ -528,7 +528,7 @@ export default function GeneratorPage() {
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                                 <h3 style={{ fontSize: '0.9375rem', fontWeight: 700, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                                     <MonitorSmartphone size={16} color="#E11D55" strokeWidth={2} />
-                                    Block 2 — Frontend Prompt Generator (Canva Code)
+                                    {formData.appMode === 'frontend' ? 'Prompt 2 — After UI is generated, paste this (JS Logic)' : 'Block 2 — Frontend Prompt Generator (Canva Code)'}
                                 </h3>
                                 <CopyButton text={block2} />
                             </div>
@@ -543,22 +543,38 @@ export default function GeneratorPage() {
                             </pre>
                         </GlassCard>
 
-                        {/* How to Use — 4 Steps */}
-                        <div style={{
-                            padding: '1rem 1.125rem', background: '#FFF1F3', border: '1px solid #FECDD6',
-                            borderRadius: '0.75rem', fontSize: '0.8125rem', color: '#64748B', lineHeight: 1.75,
-                        }}>
-                            <strong style={{ color: '#E11D55', fontSize: '0.875rem', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
-                                <Lightbulb size={15} color="#E11D55" strokeWidth={2} />
-                                How to Use These Prompts
-                            </strong>
-                            <ol style={{ marginTop: '0.5rem', paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                                <li><strong style={{ color: '#0F172A' }}>Step 1 — Setup:</strong> Open ChatGPT or Claude. Paste <strong>Block 1</strong> and answer the follow-up questions (Sheet ID, Folder ID, etc.).</li>
-                                <li><strong style={{ color: '#0F172A' }}>Step 2 — Deploy:</strong> Copy the GAS code, paste into Google Apps Script, and deploy as a Web App. Copy the Web App URL.</li>
-                                <li><strong style={{ color: '#0F172A' }}>Step 3 — UI:</strong> Paste <strong>Block 2</strong> into the <strong>same chat</strong>. Replace <code>[YOUR GAS WEBAPP URL HERE]</code> with your real URL in the generated Canva Code prompts.</li>
-                                <li><strong style={{ color: '#0F172A' }}>Step 4 — Build:</strong> Copy the Canva Code prompts into Canva Code's AI, one at a time (UI first, then JS Logic).</li>
-                            </ol>
-                        </div>
+                        {/* How to Use — Instructions */}
+                        {formData.appMode === 'frontend' ? (
+                            <div style={{
+                                padding: '1rem 1.125rem', background: '#FFF1F3', border: '1px solid #FECDD6',
+                                borderRadius: '0.75rem', fontSize: '0.8125rem', color: '#64748B', lineHeight: 1.75,
+                            }}>
+                                <strong style={{ color: '#E11D55', fontSize: '0.875rem', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                                    <Lightbulb size={15} color="#E11D55" strokeWidth={2} />
+                                    Quick Start Guide (Frontend Only)
+                                </strong>
+                                <div style={{ marginTop: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                                    <div><strong style={{ color: '#0F172A' }}>Step 1:</strong> Open Canva → Canva Code → AI Generate → Paste <strong>Prompt 1</strong></div>
+                                    <div><strong style={{ color: '#0F172A' }}>Step 2:</strong> Once UI ready → AI Generate again → Paste <strong>Prompt 2</strong></div>
+                                </div>
+                            </div>
+                        ) : (
+                            <div style={{
+                                padding: '1rem 1.125rem', background: '#FFF1F3', border: '1px solid #FECDD6',
+                                borderRadius: '0.75rem', fontSize: '0.8125rem', color: '#64748B', lineHeight: 1.75,
+                            }}>
+                                <strong style={{ color: '#E11D55', fontSize: '0.875rem', display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                                    <Lightbulb size={15} color="#E11D55" strokeWidth={2} />
+                                    How to Use These Prompts
+                                </strong>
+                                <ol style={{ marginTop: '0.5rem', paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                                    <li><strong style={{ color: '#0F172A' }}>Step 1 — Setup:</strong> Open ChatGPT or Claude. Paste <strong>Block 1</strong> and answer the follow-up questions (Sheet ID, Folder ID, etc.).</li>
+                                    <li><strong style={{ color: '#0F172A' }}>Step 2 — Deploy:</strong> Copy the GAS code, paste into Google Apps Script, and deploy as a Web App. Copy the Web App URL.</li>
+                                    <li><strong style={{ color: '#0F172A' }}>Step 3 — UI:</strong> Paste <strong>Block 2</strong> into the <strong>same chat</strong>. Replace <code>[YOUR GAS WEBAPP URL HERE]</code> with your real URL in the generated Canva Code prompts.</li>
+                                    <li><strong style={{ color: '#0F172A' }}>Step 4 — Build:</strong> Copy the Canva Code prompts into Canva Code's AI, one at a time (UI first, then JS Logic).</li>
+                                </ol>
+                            </div>
+                        )}
                     </motion.div>
                 )}
 

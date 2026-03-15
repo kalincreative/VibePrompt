@@ -121,5 +121,41 @@ Logic: ${requiredLogic} ${waLogic}"
 
 Please format your response by giving me 'Prompt 1' and 'Prompt 2' in copyable blocks.`
 
+  // ── SPECIAL OVERRIDE: Frontend Only Mode ────────────────────────────
+  if (formData.appMode === 'frontend') {
+    const frontendOnly_block1 = `Act as a Senior UI/UX Expert. Build a complete Tailwind CSS layout for a ${projectType} named '${appName}'.
+Target User: ${formData.targetAudience || 'General Public'}
+Scope: ${description}. Use our agreed-upon text copy.
+Design Vibe: ${vibe}. Primary Color: ${safePrimary}. Secondary Color: ${safeSecondary}. ${safeLogo}
+Interactive elements needed: ${frontendFeatures.join(', ')}
+Special behaviours: ${formData.additionalNotes || 'Standard modern web behavior.'}
+
+CRITICAL RULE: Build HTML + CSS structure only. Do NOT add any JavaScript logic yet.
+Build HTML shells and CSS states for all interactive elements but no JS.`
+
+    const persistence = frontendFeatures.includes('💾 Save Data (localStorage)') || frontendFeatures.includes('💾 Save progress (localStorage)')
+      ? 'localStorage'
+      : 'none needed'
+
+    const frontendOnly_block2 = `Perfect. Now add all JavaScript interactivity for the layout above.
+App Type: Frontend Only — fully self-contained, no backend.
+Features to implement: ${frontendFeatures.join(', ')}
+Special behaviours: ${formData.additionalNotes || 'Standard modern web behavior.'}
+Data persistence: ${persistence}
+
+STRICT RULES:
+- Pure vanilla JavaScript only
+- NO fetch() calls, NO API calls, NO external dependencies
+- NO backend URLs
+- Wrap all JS in DOMContentLoaded
+- All animations via CSS classes toggled by JS
+- Must work 100% standalone in Canva Code`
+
+    return { 
+      block1: frontendOnly_block1, 
+      block2: frontendOnly_block2 
+    }
+  }
+
   return { block1, block2 }
 }
