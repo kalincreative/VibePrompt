@@ -186,10 +186,22 @@ export const designVibePresets = [
 ]
 
 export const featureTemplates = [
-    'Save Data to Google Sheets',
-    'Auto-Send Email via Gmail',
-    'Generate PDF Document',
-    'Create Google Calendar Event',
-    'Auto-Redirect to WhatsApp',
-    'Upload File to Google Drive',
+    '📊 Save Data to Google Sheets',
+    '📧 Auto-Send Email via Gmail',
+    '📄 Generate PDF Document',
+    '📅 Create Google Calendar Event',
+    '💬 Auto-Redirect to WhatsApp',
+    '📁 Upload File to Google Drive',
+]
+
+export const frontendFeatureTemplates = [
+    '✨ Animations & visual effects',
+    '⏲️ Timer or Countdown',
+    '🏆 Score / Points system',
+    '🎲 Random Generator (spin, shuffle, random pick)',
+    '📝 Quiz / answer logic',
+    '📊 Dashboard',
+    '💾 Save progress (localStorage)',
+    '🎉 Confetti or celebration effects',
+    '➕ Other',
 ]

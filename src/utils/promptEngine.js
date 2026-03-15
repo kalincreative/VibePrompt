@@ -88,6 +88,21 @@ ${phase3Instructions}
 Required Logic: ${requiredLogic}`
 
   // ── BLOCK 2: Canva Code Frontend Prompt ─────────────────────────────
+  const frontendFeatures = formData.frontendFeatures || []
+  const otherFeature = (frontendFeatures.includes('➕ Other') && formData.otherFrontendFeature?.trim())
+    ? `\nExtra Capability: ${formData.otherFrontendFeature.trim()}`
+    : ''
+  const frontendLogic = frontendFeatures.length > 0
+    ? `Required Interactive Features: ${frontendFeatures.join(', ')}.${otherFeature}`
+    : ''
+
+  const integrationRules = formData.appMode === 'frontend'
+    ? `Integration: This is a standalone Frontend app. Use LocalStorage if saving data is required. Ensure all interactive elements work perfectly.`
+    : `Use this exact GAS URL: [YOUR GAS WEBAPP URL HERE]
+Fetch Rules: Gather form data into a flat JSON object matching our agreed fields. Send using JSON.stringify(formData). STRICTLY FORBID URLSearchParams, FormData(), or 'Content-Type': 'application/json' headers. STRICTLY FORBID mode: 'no-cors'. Use standard POST.
+Success Handling & Failsafe (CRITICAL): The backend returns {"status": "success"}. You MUST check 'if (result.status === "success")'. If successful, hide the form and display the success container.
+Failsafe Logic: Wrap the fetch request in a try/catch/finally block. Inside the finally block, MUST explicitly hide the 'Loading...' button and show the original submit button if the request failed, so the user is never stuck. If error, show the error box.`
+
   const block2 = `Awesome, the backend is deployed. Now, based on the exact details, UI sections, and form fields we just brainstormed and finalized above, generate the 2-Step Mega Prompt for Canva Code's AI.
 
 --- PROMPT 1: UI/UX DESIGN ---
@@ -99,11 +114,10 @@ Crucial Rule: For any forms, MUST build a hidden error message box, a hidden suc
 
 --- PROMPT 2: JS LOGIC & INTEGRATION ---
 Instruct the AI to generate this prompt using this EXACT structure:
-"Perfect, now add the JavaScript integration for the layout above. Provide strict rules:
-Use this exact GAS URL: [YOUR GAS WEBAPP URL HERE]
-Fetch Rules: Gather form data into a flat JSON object matching our agreed fields. Send using JSON.stringify(formData). STRICTLY FORBID URLSearchParams, FormData(), or 'Content-Type': 'application/json' headers. STRICTLY FORBID mode: 'no-cors'. Use standard POST.
-Success Handling & Failsafe (CRITICAL): The backend returns {"status": "success"}. You MUST check 'if (result.status === "success")'. If successful, hide the form and display the success container.
-Failsafe Logic: Wrap the fetch request in a try/catch/finally block. Inside the finally block, MUST explicitly hide the 'Loading...' button and show the original submit button if the request failed, so the user is never stuck. If error, show the error box."
+"Act as a Senior Web Developer. Write the vanilla JavaScript logic for the ${projectType} layout built in Prompt 1.
+${frontendLogic}
+${integrationRules}
+Logic: ${requiredLogic} ${waLogic}"
 
 Please format your response by giving me 'Prompt 1' and 'Prompt 2' in copyable blocks.`
 

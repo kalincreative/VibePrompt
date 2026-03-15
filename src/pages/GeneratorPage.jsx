@@ -11,7 +11,7 @@ import CopyButton from '../components/CopyButton'
 import VibePreviewer from '../components/VibePreviewer'
 import PaywallModal from '../components/PaywallModal'
 import AuthRequiredModal from '../components/AuthRequiredModal'
-import { appTypePresets, designVibePresets, featureTemplates } from '../utils/presets'
+import { appTypePresets, designVibePresets, featureTemplates, frontendFeatureTemplates } from '../utils/presets'
 import { generateMegaPrompt } from '../utils/promptEngine'
 import { useAuth } from '../hooks/useAuth'
 import { supabase, isSupabaseConfigured } from '../lib/supabase'
@@ -23,11 +23,13 @@ const initialFormData = {
     appTypeId: '',
     designVibeId: '',
     features: [],
+    frontendFeatures: [],
+    otherFrontendFeature: '',
     additionalNotes: '',
     primaryColor: '',
     secondaryColor: '',
     logoUrl: '',
-    appMode: 'backend',
+    appMode: 'frontend+backend',
 }
 
 export default function GeneratorPage() {
@@ -61,12 +63,12 @@ export default function GeneratorPage() {
 
     const update = (field, value) => setFormData(prev => ({ ...prev, [field]: value }))
 
-    const toggleFeature = (feature) => {
+    const toggleFeature = (feature, field = 'features') => {
         setFormData(prev => ({
             ...prev,
-            features: prev.features.includes(feature)
-                ? prev.features.filter(f => f !== feature)
-                : [...prev.features, feature],
+            [field]: prev[field].includes(feature)
+                ? prev[field].filter(f => f !== feature)
+                : [...prev[field], feature],
         }))
     }
 
@@ -244,20 +246,20 @@ export default function GeneratorPage() {
                                                     <motion.div
                                                         whileHover={{ scale: 1.02 }}
                                                         whileTap={{ scale: 0.98 }}
-                                                        onClick={() => update('appMode', 'backend')}
+                                                        onClick={() => update('appMode', 'frontend+backend')}
                                                         style={{
                                                             padding: '1rem',
                                                             borderRadius: '0.75rem',
                                                             cursor: 'pointer',
                                                             transition: 'all 0.2s',
-                                                            background: formData.appMode === 'backend' ? '#FFF1F3' : '#F8FAFC',
-                                                            border: `2px solid ${formData.appMode === 'backend' ? '#F43F6F' : '#E2E8F0'}`,
+                                                            background: formData.appMode === 'frontend+backend' ? '#FFF1F3' : '#F8FAFC',
+                                                            border: `2px solid ${formData.appMode === 'frontend+backend' ? '#F43F6F' : '#E2E8F0'}`,
                                                             display: 'flex',
                                                             flexDirection: 'column',
                                                             gap: '0.25rem'
                                                         }}
                                                     >
-                                                        <span style={{ fontSize: '0.875rem', fontWeight: 700, color: formData.appMode === 'backend' ? '#E11D55' : '#0F172A' }}>
+                                                        <span style={{ fontSize: '0.875rem', fontWeight: 700, color: formData.appMode === 'frontend+backend' ? '#E11D55' : '#0F172A' }}>
                                                             Frontend + Backend
                                                         </span>
                                                         <span style={{ fontSize: '0.75rem', color: '#64748B' }}>
@@ -312,31 +314,87 @@ export default function GeneratorPage() {
                                     {step === 3 && (
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                                             <h2 style={{ fontSize: '1rem', fontWeight: 700, color: '#F43F6F' }}>
-                                                Step 3 — Select Backend Integrations
+                                                {formData.appMode === 'backend' ? 'Step 3 — Select Backend Integrations' : 'Step 3 — What does your app do?'}
                                             </h2>
-                                            <p style={{ fontSize: '0.8125rem', color: '#64748B' }}>
-                                                Tap the backend integrations your project needs (optional):
+                                            <p style={{ fontSize: '0.875rem', color: '#64748B', marginTop: '-0.75rem' }}>
+                                                {formData.appMode === 'backend' ? 'Tap the backend integrations your project needs (optional):' : 'Select the interactive features your app needs'}
                                             </p>
 
-                                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                                                {featureTemplates.map(feature => {
-                                                    const isSelected = formData.features.includes(feature)
-                                                    return (
-                                                        <motion.button key={feature} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} onClick={() => toggleFeature(feature)}
-                                                            style={{
-                                                                padding: '0.625rem 1rem', borderRadius: '0.625rem',
-                                                                fontSize: '0.8125rem', fontWeight: 600, fontFamily: 'inherit',
-                                                                cursor: 'pointer', outline: 'none', transition: 'all 0.2s',
-                                                                background: isSelected ? '#FFF1F3' : '#F8FAFC',
-                                                                border: `2px solid ${isSelected ? '#F43F6F' : '#E2E8F0'}`,
-                                                                color: isSelected ? '#E11D55' : '#64748B',
-                                                            }}
-                                                        >
-                                                            {isSelected ? '✓ ' : ''}{feature}
-                                                        </motion.button>
-                                                    )
-                                                })}
-                                            </div>
+                                            {/* Frontend Features Section */}
+                                            {(formData.appMode === 'frontend' || formData.appMode === 'frontend+backend') && (
+                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                                                    {formData.appMode === 'frontend+backend' && (
+                                                        <h3 style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#0F172A', marginTop: '0.5rem' }}>
+                                                            Frontend Features
+                                                        </h3>
+                                                    )}
+                                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                                                        {frontendFeatureTemplates.map(feature => {
+                                                            const isSelected = formData.frontendFeatures.includes(feature)
+                                                            return (
+                                                                <motion.button key={feature} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} onClick={() => toggleFeature(feature, 'frontendFeatures')}
+                                                                    style={{
+                                                                        padding: '0.625rem 1rem', borderRadius: '0.625rem',
+                                                                        fontSize: '0.8125rem', fontWeight: 600, fontFamily: 'inherit',
+                                                                        cursor: 'pointer', outline: 'none', transition: 'all 0.2s',
+                                                                        background: isSelected ? '#FFF1F3' : '#F8FAFC',
+                                                                        border: `2px solid ${isSelected ? '#F43F6F' : '#E2E8F0'}`,
+                                                                        color: isSelected ? '#E11D55' : '#64748B',
+                                                                    }}
+                                                                >
+                                                                    {isSelected ? '✓ ' : ''}{feature}
+                                                                </motion.button>
+                                                            )
+                                                        })}
+                                                    </div>
+                                                    {formData.frontendFeatures.includes('➕ Other') && (
+                                                        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
+                                                            <InputField
+                                                                label="Specify Other Feature"
+                                                                id="otherFrontendFeature"
+                                                                value={formData.otherFrontendFeature}
+                                                                onChange={e => update('otherFrontendFeature', e.target.value)}
+                                                                placeholder="e.g., Integration with Stripe, Web Speech API..."
+                                                            />
+                                                        </motion.div>
+                                                    )}
+                                                </div>
+                                            )}
+
+                                            {/* Divider for Fullstack */}
+                                            {formData.appMode === 'frontend+backend' && (
+                                                <div style={{ height: '1px', background: '#E2E8F0', width: '100%', margin: '0.75rem 0' }} />
+                                            )}
+
+                                            {/* Backend Integrations Section */}
+                                            {(formData.appMode === 'backend' || formData.appMode === 'frontend+backend') && (
+                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                                                    {formData.appMode === 'frontend+backend' && (
+                                                        <h3 style={{ fontSize: '0.8125rem', fontWeight: 700, color: '#0F172A' }}>
+                                                            Backend Integrations
+                                                        </h3>
+                                                    )}
+                                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+                                                        {featureTemplates.map(feature => {
+                                                            const isSelected = formData.features.includes(feature)
+                                                            return (
+                                                                <motion.button key={feature} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} onClick={() => toggleFeature(feature, 'features')}
+                                                                    style={{
+                                                                        padding: '0.625rem 1rem', borderRadius: '0.625rem',
+                                                                        fontSize: '0.8125rem', fontWeight: 600, fontFamily: 'inherit',
+                                                                        cursor: 'pointer', outline: 'none', transition: 'all 0.2s',
+                                                                        background: isSelected ? '#FFF1F3' : '#F8FAFC',
+                                                                        border: `2px solid ${isSelected ? '#F43F6F' : '#E2E8F0'}`,
+                                                                        color: isSelected ? '#E11D55' : '#64748B',
+                                                                    }}
+                                                                >
+                                                                    {isSelected ? '✓ ' : ''}{feature}
+                                                                </motion.button>
+                                                            )
+                                                        })}
+                                                    </div>
+                                                </div>
+                                            )}
 
                                             <TextArea label="Anything else? (optional)" id="additionalNotes" value={formData.additionalNotes} onChange={e => update('additionalNotes', e.target.value)} placeholder="Color preferences, specific integrations, special behaviors..." rows={3} />
                                         </div>
@@ -382,7 +440,8 @@ export default function GeneratorPage() {
                                             {formData.appTypeId && <div><strong style={{ color: '#0F172A' }}>Type:</strong> {appTypePresets.find(t => t.id === formData.appTypeId)?.name}</div>}
                                             <div><strong style={{ color: '#0F172A' }}>Backend:</strong> {formData.appMode === 'frontend' ? 'No' : 'Yes'}</div>
                                             {formData.designVibeId && <div><strong style={{ color: '#0F172A' }}>Vibe:</strong> {designVibePresets.find(v => v.id === formData.designVibeId)?.name}</div>}
-                                            {formData.features.length > 0 && <div><strong style={{ color: '#0F172A' }}>Features:</strong> {formData.features.length} selected</div>}
+                                            {formData.frontendFeatures.length > 0 && <div><strong style={{ color: '#0F172A' }}>Frontend:</strong> {formData.frontendFeatures.length} features</div>}
+                                            {formData.features.length > 0 && <div><strong style={{ color: '#0F172A' }}>Integrations:</strong> {formData.features.length} selected</div>}
                                         </>
                                     ) : (
                                         <span style={{ color: '#94A3B8', fontStyle: 'italic' }}>Start filling in the form to see your summary...</span>
