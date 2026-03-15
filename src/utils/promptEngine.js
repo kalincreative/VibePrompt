@@ -61,24 +61,31 @@ export function generateMegaPrompt(formData) {
     : ''
 
   // ── BLOCK 1: Project Kickoff & Backend Setup ────────────────────────
-  const block1 = `Act as a Senior Tech Lead and UI/UX Architect. I want to build a ${projectType} named '${appName}' using Canva Code (Frontend) and Google Apps Script (Backend).
+  const backendContext = formData.appMode === 'frontend'
+    ? "NOTE: This app is 'Frontend Only' and does not need a Google Apps Script backend. Focus purely on static logic and browser-side data handling."
+    : "This app uses a 'Frontend + Backend' architecture using Google Apps Script (Backend)."
+
+  const phase3Instructions = formData.appMode === 'frontend'
+    ? "Since this is Frontend Only, skip Phase 2 and 3 regarding GAS. Instead, discuss any client-side storage needs (localstorage) or external static APIs."
+    : "Once I provide the IDs, give me the complete doGet(e) and doPost(e) GAS code. Inject exact IDs and return JSON responses."
+
+  const block1 = `Act as a Senior Tech Lead and UI/UX Architect. I want to build a ${projectType} named '${appName}'. ${backendContext}
 
 Client's Initial Concept: "${description}"${additionalNotes}
 
 PHASE 1: BRAINSTORMING (DO THIS FIRST)
 Before writing any code or generating Canva prompts, analyze my concept. Ask me specific, comprehensive, and as many clarifying questions as needed to finalize the UI scope (sections, form fields, user flow) and any required integrations.
-(Stop here and wait for my reply. DO NOT generate any GAS code or setup guides yet).
+(Stop here and wait for my reply. DO NOT generate any code yet).
 
-PHASE 2: DYNAMIC DATABASE SETUP & ID REQUEST (DO THIS AFTER PHASE 1)
-Once we agree on the scope, guide me step-by-step on how to set up the necessary database or integrations (e.g., creating a Google Sheet, naming columns, Drive folders) based on our agreed fields. Then, teach me how to find the exact IDs. Finally, explicitly ask me to reply with ALL required IDs.
-(Stop here and wait for me to provide the IDs. DO NOT generate the GAS code yet).
+PHASE 2: SETUP & REQUIREMENTS (DO THIS AFTER PHASE 1)
+${formData.appMode === 'frontend'
+    ? "List all the UI features and static content requirements. Discuss if we need browser-side logic like LocalStorage."
+    : "Guide me step-by-step on how to set up the necessary database or integrations (e.g., creating a Google Sheet). Then, teach me how to find the exact IDs. Finally, explicitly ask me to reply with ALL required IDs."}
+(Stop here and wait for me to reply. DO NOT generate the final prompts yet).
 
-PHASE 3: FULL GAS CODE GENERATION (DO THIS AFTER I PROVIDE THE IDs)
-Once I provide the IDs, give me the complete doGet(e) and doPost(e) GAS code.
-Inject the exact IDs I provided directly into the script.
-Required Logic: ${requiredLogic}
-CRITICAL API RULE: The doPost(e) function MUST return a proper JSON response using ContentService. On success, return exactly: {"status": "success", "message": "Success"}. On error, return: {"status": "error", "message": "Error details"}.
-Remind me to deploy it as a Web App to get the URL.`
+PHASE 3: FINAL CODE & LOGIC (DO THIS AFTER PHASE 2)
+${phase3Instructions}
+Required Logic: ${requiredLogic}`
 
   // ── BLOCK 2: Canva Code Frontend Prompt ─────────────────────────────
   const block2 = `Awesome, the backend is deployed. Now, based on the exact details, UI sections, and form fields we just brainstormed and finalized above, generate the 2-Step Mega Prompt for Canva Code's AI.

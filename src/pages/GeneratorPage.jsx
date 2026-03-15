@@ -27,6 +27,7 @@ const initialFormData = {
     primaryColor: '',
     secondaryColor: '',
     logoUrl: '',
+    appMode: 'backend',
 }
 
 export default function GeneratorPage() {
@@ -209,6 +210,63 @@ export default function GeneratorPage() {
                                                 required
                                             />
 
+                                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '0.25rem' }}>
+                                                <label style={{ fontSize: '0.8125rem', fontWeight: 600, color: '#334155' }}>
+                                                    Does your app need a backend?
+                                                </label>
+                                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                                                    {/* Card 1: Frontend Only */}
+                                                    <motion.div
+                                                        whileHover={{ scale: 1.02 }}
+                                                        whileTap={{ scale: 0.98 }}
+                                                        onClick={() => update('appMode', 'frontend')}
+                                                        style={{
+                                                            padding: '1rem',
+                                                            borderRadius: '0.75rem',
+                                                            cursor: 'pointer',
+                                                            transition: 'all 0.2s',
+                                                            background: formData.appMode === 'frontend' ? '#FFF1F3' : '#F8FAFC',
+                                                            border: `2px solid ${formData.appMode === 'frontend' ? '#F43F6F' : '#E2E8F0'}`,
+                                                            display: 'flex',
+                                                            flexDirection: 'column',
+                                                            gap: '0.25rem'
+                                                        }}
+                                                    >
+                                                        <span style={{ fontSize: '0.875rem', fontWeight: 700, color: formData.appMode === 'frontend' ? '#E11D55' : '#0F172A' }}>
+                                                            Frontend Only
+                                                        </span>
+                                                        <span style={{ fontSize: '0.75rem', color: '#64748B' }}>
+                                                            Games, tools, interactive apps
+                                                        </span>
+                                                    </motion.div>
+
+                                                    {/* Card 2: Frontend + Backend */}
+                                                    <motion.div
+                                                        whileHover={{ scale: 1.02 }}
+                                                        whileTap={{ scale: 0.98 }}
+                                                        onClick={() => update('appMode', 'backend')}
+                                                        style={{
+                                                            padding: '1rem',
+                                                            borderRadius: '0.75rem',
+                                                            cursor: 'pointer',
+                                                            transition: 'all 0.2s',
+                                                            background: formData.appMode === 'backend' ? '#FFF1F3' : '#F8FAFC',
+                                                            border: `2px solid ${formData.appMode === 'backend' ? '#F43F6F' : '#E2E8F0'}`,
+                                                            display: 'flex',
+                                                            flexDirection: 'column',
+                                                            gap: '0.25rem'
+                                                        }}
+                                                    >
+                                                        <span style={{ fontSize: '0.875rem', fontWeight: 700, color: formData.appMode === 'backend' ? '#E11D55' : '#0F172A' }}>
+                                                            Frontend + Backend
+                                                        </span>
+                                                        <span style={{ fontSize: '0.75rem', color: '#64748B' }}>
+                                                            Forms, data saving, Google Sheets integration
+                                                        </span>
+                                                    </motion.div>
+                                                </div>
+                                            </div>
+
                                             {formData.appTypeId && (
                                                 <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}
                                                     style={{
@@ -322,6 +380,7 @@ export default function GeneratorPage() {
                                             {formData.appDescription && <div><strong style={{ color: '#0F172A' }}>Does:</strong> {formData.appDescription.substring(0, 80)}{formData.appDescription.length > 80 ? '...' : ''}</div>}
                                             {formData.targetAudience && <div><strong style={{ color: '#0F172A' }}>For:</strong> {formData.targetAudience}</div>}
                                             {formData.appTypeId && <div><strong style={{ color: '#0F172A' }}>Type:</strong> {appTypePresets.find(t => t.id === formData.appTypeId)?.name}</div>}
+                                            <div><strong style={{ color: '#0F172A' }}>Backend:</strong> {formData.appMode === 'frontend' ? 'No' : 'Yes'}</div>
                                             {formData.designVibeId && <div><strong style={{ color: '#0F172A' }}>Vibe:</strong> {designVibePresets.find(v => v.id === formData.designVibeId)?.name}</div>}
                                             {formData.features.length > 0 && <div><strong style={{ color: '#0F172A' }}>Features:</strong> {formData.features.length} selected</div>}
                                         </>
