@@ -191,7 +191,20 @@ export default function GeneratorPage() {
                                                 id="appType"
                                                 value={formData.appTypeId}
                                                 onChange={e => update('appTypeId', e.target.value)}
-                                                options={appTypePresets.map(t => ({ value: t.id, label: t.name }))}
+                                                options={[
+                                                    {
+                                                        group: 'Pages & Websites',
+                                                        items: appTypePresets
+                                                            .filter(t => t.category === 'Pages & Websites')
+                                                            .map(t => ({ value: t.id, label: t.name }))
+                                                    },
+                                                    {
+                                                        group: 'Apps & Tools',
+                                                        items: appTypePresets
+                                                            .filter(t => t.category === 'Apps & Tools')
+                                                            .map(t => ({ value: t.id, label: t.name }))
+                                                    }
+                                                ]}
                                                 placeholder="Choose one..."
                                                 required
                                             />

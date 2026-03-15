@@ -38,9 +38,24 @@ export default function SelectField({ label, id, value, onChange, options = [], 
                     }}
                 >
                     <option value="" disabled style={{ color: '#94A3B8' }}>{placeholder}</option>
-                    {options.map(opt => (
-                        <option key={opt.value} value={opt.value}>{opt.label}</option>
-                    ))}
+                    {options.map(opt => {
+                        if (opt.group && Array.isArray(opt.items)) {
+                            return (
+                                <optgroup key={opt.group} label={opt.group}>
+                                    {opt.items.map(subOpt => (
+                                        <option key={subOpt.value} value={subOpt.value}>
+                                            {subOpt.label}
+                                        </option>
+                                    ))}
+                                </optgroup>
+                            )
+                        }
+                        return (
+                            <option key={opt.value} value={opt.value}>
+                                {opt.label}
+                            </option>
+                        )
+                    })}
                 </select>
                 <span style={{
                     position: 'absolute',

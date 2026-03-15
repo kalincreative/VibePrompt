@@ -16,7 +16,7 @@ export function generateMegaPrompt(formData) {
   // ── Resolve human-readable labels from IDs ──────────────────────────
   const projectTypeObj = appTypePresets.find(t => t.id === formData.appTypeId)
   const projectType = projectTypeObj
-    ? projectTypeObj.name.replace(/^[^\s]+\s/, '') // strip leading emoji
+    ? projectTypeObj.name
     : formData.appTypeId || 'System / Web App'
 
   const vibeObj = designVibePresets.find(v => v.id === formData.designVibeId)
