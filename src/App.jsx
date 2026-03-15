@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useRegisterSW } from 'virtual:pwa-register/react'
 import Navbar from './components/Navbar'
 import HomePage from './pages/HomePage'
 import GeneratorPage from './pages/GeneratorPage'
@@ -12,6 +13,18 @@ import ProtectedRoute from './components/ProtectedRoute'
 export default function App() {
     const [showVerifiedModal, setShowVerifiedModal] = useState(false)
     const navigate = useNavigate()
+
+    const {
+        needRefresh: [needRefresh, setNeedRefresh],
+        updateServiceWorker,
+    } = useRegisterSW()
+
+    useEffect(() => {
+        if (needRefresh) {
+            // Automatically update and reload
+            updateServiceWorker(true)
+        }
+    }, [needRefresh, updateServiceWorker])
 
     useEffect(() => {
         if (!supabase) return
