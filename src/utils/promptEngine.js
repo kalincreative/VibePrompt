@@ -60,7 +60,7 @@ export function generateMegaPrompt(formData) {
   // ── BLOCK 1: Project Kickoff & Backend Setup ────────────────────────
   const backendContext = formData.appMode === 'frontend'
     ? "NOTE: This app is 'Frontend Only' and does not need a Google Apps Script backend. Focus purely on static logic and browser-side data handling."
-    : "This app uses a 'Frontend + Backend' architecture using Google Apps Script (Backend)."
+    : "This app uses a 'Canva Code (Frontend) and Google Apps Script (Backend)' architecture."
 
   const phase3Instructions = formData.appMode === 'frontend'
     ? "Since this is Frontend Only, skip Phase 2 and 3 regarding GAS. Instead, discuss any client-side storage needs (localstorage) or external static APIs."
