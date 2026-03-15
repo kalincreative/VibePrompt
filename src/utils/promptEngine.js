@@ -1,7 +1,4 @@
-// ═══════════════════════════════════════════════
-// VIBEPROMPT — SMART DYNAMIC PROMPT ENGINE
-// 100% Frontend. No API calls. Conditional logic.
-// ═══════════════════════════════════════════════
+// VIBEPROMPT — SMART DYNAMIC PROMPT ENGINE v1.1.0
 
 import { appTypePresets, designVibePresets } from './presets'
 
