@@ -9,11 +9,11 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'robots.txt', 'sitemap.xml'],
       manifest: {
         name: 'VibePrompt',
         short_name: 'VibePrompt',
-        description: 'Turn Canva Designs Into Fully Functional Apps',
+        description: 'The smartest way to build Canva apps. Transform your concept into precise AI prompts for Canva Code and backend integrations.',
         theme_color: '#F43F6F',
         background_color: '#FFFFFF',
         display: 'standalone',
